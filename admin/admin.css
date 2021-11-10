@@ -1,0 +1,22 @@
+.dropdown-1 {
+    cursor: pointer;
+    display: none;
+}
+.dropdown-2 {
+    cursor: pointer;
+}
+
+.show {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.add:hover {
+    color: #0d6efd;
+}
+
+.dropdown:hover {
+    color: #0d6efd ;
+}

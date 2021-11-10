@@ -1,0 +1,103 @@
+.twitter {
+    color: #ffffff;
+    font-size: 22em;
+}
+
+.fondo-left {
+    height: 100vh;
+    background-image: url("public/lohp_850x623.png");
+}
+
+.logo-right {
+    font-size: 3em;
+    /*color: #ffffff;*/
+}
+
+.phrase {
+    font-size: 4em;
+    font-weight: 700;
+}
+
+.join {
+    font-size: 2.2em;
+    font-weight: 700;
+}
+
+a {
+    text-decoration: none;
+}
+
+.register {
+    color: #000;
+    font-weight: 100;
+    letter-spacing: 1px;
+    text-align: center;
+    background: #fff;
+    border-radius: 60px;
+}
+
+.register:hover {
+    background: #e5e5e5;
+}
+
+.register:any-link {
+    text-decoration: none;
+    color: #000;
+}
+
+.terms {
+    color: rgb(29, 155, 240);
+}
+
+.terms:any-link, .session:any-link {
+    color: rgb(29, 155, 240);
+}
+
+.terms:hover {
+    text-decoration: underline;
+    color: rgb(29, 155, 240);
+    cursor: pointer;
+}
+
+@media (max-width: 1200px) {
+
+    .chico {
+        height: 50vh;
+    }
+
+    .twitter {
+        font-size: 5em;
+    }
+}
+
+.title {
+    color: #fff;
+    font-weight: 100;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.wrong-password {
+    border: 1px solid red !important;
+}
+
+.start {
+    color: #fff;
+    background: rgb(29, 155, 240);
+    border: none;
+    border-radius: 3px;
+    font-weight: 100;
+}
+
+.start:hover {
+    color: #fff;
+    background: rgb(37, 128, 196);
+}
+
+.black {
+    color: #000;
+}
+
+.modal-header, .modal-footer {
+    border: none;
+}

@@ -1,0 +1,28 @@
+.chat {
+    height: 82vh; /* or any value */
+    /*overflow-y: auto;*/
+    overflow: auto;
+}
+
+.form-static {
+    position: fixed;
+    /*right: 1px;*/
+    bottom: 100%;
+    background: #ffffff;
+    width: inherit;
+    display: flex;
+    content: '';
+    /*justify-self: end;*/
+}
+
+.h {
+    height: 100vh;
+}
+
+button:hover {
+    color: #4f7abe;
+}
+
+button {
+    color: #0b5ed7;
+}

@@ -1,0 +1,49 @@
+/*.chat {*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    flex-direction: column;*/
+/*}*/
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.user_chat a {
+    text-decoration: none;
+}
+
+.user_chat:hover {
+    background: rgb(239, 241, 241);
+}
+
+.user-div {
+    height: 82vh; /* or any value */
+    overflow-y: auto;
+}
+
+.title {
+    font-weight: 600;
+    font-size: 1.5em;
+}
+
+
+.back:hover {
+    color: #0d6efd;
+}
+
+.max {
+    max-width: 400px;
+    max-height: 70px;
+    overflow-y: hidden;
+}
+
+.show-date {
+    display: none;
+    color: #5c636a;
+}
+
+.container-chat:hover .show-date {
+    display: block;
+}

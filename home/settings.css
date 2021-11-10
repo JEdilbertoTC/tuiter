@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap');
+
+.cajaTextoIcono{
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+}
+
+.back{
+    color: rgb(29, 155, 240);
+    font-size: 30px;
+    padding: 20px;
+}
+
+.font{
+    color: black;
+    text-align: left;
+    font-size: 2em;
+    font-family: 'Inter', sans-serif;
+    font-weight: bold;
+    padding: 15px;
+}
+
+.text-info{
+    color: black;
+    text-align: center;
+    font-size: 1em;
+    font-family: 'Inter', sans-serif;
+    font-weight: bold;
+}
+
+.description{
+    color: black;
+    text-align: left;
+    font-size: .5em;
+    font-family: 'Inter', sans-serif;
+    padding-left: 40%;
+    padding-right: 40%;
+}
+
+.cajaTextoUsuario{
+    font-family: 'Inter', sans-serif;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    font-size: .8em;
+}
+
+.cajaTextoCorreoBiografia{
+    font-family: 'Inter', sans-serif;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    font-size: 1em;
+}
+
+.change-data-container{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.change-data{
+    font-family: 'Inter', sans-serif;
+    font-weight: bold;
+}
+
+.boxText{
+    border: rgb(190, 190, 190) 2px solid;
+    border-radius: 50px;
+    padding: 7px;
+    font-family: 'Inter', sans-serif;
+}
+
+.button{
+    background-color: rgba(29, 155, 240, 0.5);
+    border: none;
+    border-radius: 50px;
+    padding: 7px;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-weight: bold;
+    transition: all .2s ease;
+}
+
+.button:hover {
+    background-color: rgb(29, 155, 240);
+}
