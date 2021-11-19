@@ -1,10 +1,10 @@
 <?php
 session_start();
-if(!isset($_SESSION['id'])) {
+if (!isset($_SESSION['id'])) {
 	header('Location: ../session/login.php');
 }
 include '../config/database.php';
-if(isset($_POST['delete-message-for-me'])){
+if (isset($_POST['delete-message-for-me'])) {
 	$idChat = $_POST['id_chat'];
 	$user = $_POST['user'];
 	$chat = $_POST['redirect'];

@@ -67,11 +67,11 @@ CREATE TABLE sala_chat
 
 CREATE TABLE mensajes
 (
-    id       VARCHAR(255),
-    id_chat  VARCHAR(255),
-    mensaje  VARCHAR(255),
-    date     DATETIME,
-    id_user  VARCHAR(255),
+    id      VARCHAR(255),
+    id_chat VARCHAR(255),
+    mensaje VARCHAR(255),
+    date    DATETIME,
+    id_user VARCHAR(255),
 
     CONSTRAINT fk_sala_chat_user FOREIGN KEY (id_chat) REFERENCES sala_chat (id) ON DELETE CASCADE,
     CONSTRAINT fk_user FOREIGN KEY (id_user) REFERENCES usuarios (id) ON DELETE CASCADE
@@ -140,6 +140,12 @@ WHERE m.id_chat = ''
 
 # DELETE FROM mensajes m WHERE m.id_user IN (SELECT sc.id FROM sala_chat sc WHERE )
 
-DELETE FROM mensajes WHERE id = '617091151dd3a';
+DELETE
+FROM mensajes
+WHERE id = '617091151dd3a';
 
-SELECT u.name FROM publicaciones p INNER JOIN usuarios u ON u.id = p.id_user ORDER BY RAND() LIMIT 3
+SELECT u.name
+FROM publicaciones p
+         INNER JOIN usuarios u ON u.id = p.id_user
+ORDER BY RAND()
+LIMIT 3

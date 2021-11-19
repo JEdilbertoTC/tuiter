@@ -1,8 +1,7 @@
 <?php
 session_start();
 include "../config/database.php";
-$query = "SELECT  u.name, c.message, u.photo, u.email, u.id,
-       c.message, c.id_user, c.id_publicacion, c.id AS id_comentario, c.date
+$query = "SELECT  u.name, c.message, u.photo, u.email, u.id, c.message, c.id_user, c.id_publicacion, c.id AS id_comentario, c.date
 FROM usuarios u INNER JOIN comentarios c ON u.id = c.id_user 
     INNER JOIN publicaciones p ON c.id_publicacion = p.id AND p.id = '{$_GET['id']}' ORDER BY c.date DESC";
 $comments = $conexion->query($query);
@@ -27,11 +26,10 @@ while ($comment = $comments->fetch_assoc()) { ?>
                      class="rounded-pill">
                 <div class="d-flex">
                     <a href="profile.php?id=<?php echo $comment['id_user'] ?>" class="d-flex">
-                        <p class="ps-2 pe-2 visit"
-                           style="text-transform: uppercase; font-weight: bold; font-size: 14px">
+                        <p class="ps-2 pe-2 profile">
 							<?php echo $comment['name'] ?>
                         </p>
-                        <p style="font-size: 12px">
+                        <p style="font-size: 14px">
 							<?php echo $comment['email'] ?>
                         </p>
                     </a>

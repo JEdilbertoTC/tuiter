@@ -4,10 +4,13 @@ include '../config/database.php';
 if (!isset($_SESSION['id'])) {
 	header('Location: login.php');
 }
+$id = $_SESSION['id'];
+$query = "SELECT * FROM usuarios WHERE id = '$id'";
+$result = $conexion->query($query)->fetch_assoc();
 ?>
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -25,7 +28,7 @@ if (!isset($_SESSION['id'])) {
     <div class="row">
 		<?php include "navigation.php"; ?>
         <div class="col">
-            <h1>
+            <h1 class="d-flex flex-column align-items-center">
                 <div class="d-flex justify-content-center align-items-center flex-column">
                     <p class="text-info">Información básica</p>
                     <p class="description pb-3">
@@ -34,38 +37,31 @@ if (!isset($_SESSION['id'])) {
                     </p>
                 </div>
                 <div class="cajaTextoUsuario">
-                    Nombre:
-					<?php
-					$id = $_SESSION['id'];
-					$query = "SELECT name FROM usuarios WHERE id = '$id'";
-					$email = $conexion->query($query)->fetch_assoc();
-					echo $email['name'];
-					?>
+					<?php echo $result['name']; ?>
                 </div>
+                <img src="<?php echo $result['photo']; ?>" class="rounded-circle" height="300">
             </h1>
             <div class="cajaTextoCorreoBiografia">
-				<?php
-				$id = $_SESSION['id'];
-				$query = "SELECT biography FROM usuarios WHERE id = '$id'";
-				$biography = $conexion->query($query)->fetch_assoc();
-				?>
                 <div class="row d-flex justify-content-center align-items-center">
-                    Biografia:
-					<?php echo $biography['biography'] ?>
+                    Biografía:
+					<?php echo $result['biography']; ?>
                 </div>
-
-
-				<?php
-				$id = $_SESSION['id'];
-				$query = "SELECT email FROM usuarios WHERE id = '$id'";
-				$email = $conexion->query($query)->fetch_assoc();
-				?>
                 <div class="d-flex flex-row justify-content-center align-items-center">
-                    Correo Electronico:
-					<?php echo $email['email'] ?>
+                    Correo Electrónico:
+					<?php echo $result['email'] ?>
                 </div>
-
             </div>
+
+            <form method="post" action="upload-photo.php" class="change-data-container" enctype="multipart/form-data"
+                  style="margin-top: 20px">
+                <p class="change-data">Foto de perfil</p>
+                <div class="d-flex flex-row justify-content-center align-items-center">
+                    <label for="file" class="pe-2" style="cursor:pointer;">Selecciona una foto</label>
+                    <input type="file" id="file" name="file" required accept="image/*" style="display: none">
+                    <input type="submit" name="submit" class="button" value="Cambiar">
+                </div>
+            </form>
+
             <form method="post" action="" class="change-data-container" style="margin-top: 20px">
                 <p class="change-data">Nombre</p>
                 <div class="d-flex flex-row">
@@ -74,10 +70,10 @@ if (!isset($_SESSION['id'])) {
                 </div>
             </form>
             <form method="post" action="" class="change-data-container">
-                <p class="change-data">Correo Electronico</p>
+                <p class="change-data">Correo Electrónico</p>
                 <div class="d-flex flex-row">
                     <input type="email" name="email" required class="boxText"
-                           placeholder="Correo electronico">
+                           placeholder="Correo Electrónico">
                     <input type="submit" name="different-email" class="button" value="Cambiar">
                 </div>
             </form>
@@ -90,7 +86,7 @@ if (!isset($_SESSION['id'])) {
                 </div>
             </form>
             <form method="post" action="" class="change-data-container">
-                <p class="change-data">Cambiar Biografia</p>
+                <p class="change-data">Cambiar Biografía</p>
                 <div class="d-flex flex-row">
                     <input type="text" name="biography" required autocomplete="off" class="boxText"
                            placeholder="Biografia">
@@ -101,14 +97,13 @@ if (!isset($_SESSION['id'])) {
     </div>
 </div>
 
-<?php
-if (isset($_POST['different-name'])) {
+<?php if (isset($_POST['different-name'])) {
 	$differentName = $_POST['name'];
 	$differentName = trim($differentName);
 
 	if (!$differentName) { ?>
         <div class="alert alert-danger alert-dismissible">
-            No es cambio el nombre
+            No se cambio el nombre
         </div>
 		<?php
 		die();
@@ -119,7 +114,6 @@ if (isset($_POST['different-name'])) {
 
 	if ($correct)
 		header('Location: settings.php');
-
 }
 
 if (isset($_POST['different-password'])) {
@@ -128,7 +122,7 @@ if (isset($_POST['different-password'])) {
 
 	if (!$differentPassword) { ?>
         <div class="alert alert-danger alert-dismissible">
-            No es cambio la contraseña
+            No se cambio la contraseña
         </div>
 		<?php
 		die();
@@ -157,7 +151,7 @@ if (isset($_POST['different-email'])) {
 
 	if (!$differentEmail) { ?>
         <div class="alert alert-danger alert-dismissible">
-            No es cambio el email
+            No se cambio el email
         </div>
 		<?php
 	}
@@ -181,12 +175,12 @@ if (isset($_POST['different-email'])) {
 	}
 	$query = "UPDATE usuarios SET email='$differentEmail' WHERE id = '$id' ";
 	$correct = $conexion->query($query);
-	if ($correct)
+	if ($correct) {
+		$_SESSION['email'] = $differentEmail;
 		header('Location: settings.php');
+	}
 }
-
 ?>
-
 </body>
 <script src="../index.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"

@@ -1,5 +1,5 @@
 <div class="col-xl-6 col order-first order-xl-last order-md-last">
-    <form action="" method="get" class="">
+    <form action="" method="get" class="pb-2">
         <input type="text"
                name="q"
                id="search"
@@ -53,7 +53,8 @@
                         </div>
                         <div class="d-flex flex-column w-100">
                             <a class="me-3 mb-2" href="profile.php?id=<?php echo $randomPost['id'] ?>">
-                                <p style="margin: 0; text-transform: uppercase" class="bold"><?php echo $randomPost['name']; ?></p>
+                                <p style="margin: 0; text-transform: uppercase"
+                                   class="bold"><?php echo $randomPost['name']; ?></p>
                                 <p class="email"
                                    style="margin: 0;"><?php echo $randomPost['email']; ?></p>
                             </a>

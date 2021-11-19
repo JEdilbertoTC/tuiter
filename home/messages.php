@@ -4,11 +4,10 @@ if (!isset($_SESSION['id'])) {
 	header("location: ../session/login.php");
 }
 include '../config/database.php';
-
 ?>
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -23,7 +22,6 @@ include '../config/database.php';
     <title>Mensajes</title>
 </head>
 <body>
-
 <div class="container">
     <div class="row">
 		<?php include "navigation.php"; ?>
@@ -31,43 +29,9 @@ include '../config/database.php';
 		<?php include "sidebar.php"; ?>
     </div>
 </div>
-
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
 <script src="https://kit.fontawesome.com/bc96b95e59.js" crossorigin="anonymous"></script>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

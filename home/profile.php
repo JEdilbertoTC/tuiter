@@ -29,19 +29,17 @@ if ($conexion->query($query)->num_rows == 1) {
     <title> <?php echo $user['name'] ?></title>
 </head>
 <body>
-
 <div class="container">
     <div class="row">
 		<?php include "../home/navigation.php"; ?>
         <div class="col">
             <div class="panel profile-cover">
                 <div class="profile-cover__img">
-                    <img src="<?php echo $user['photo'] ?>>" alt="" style="height: 110px"/>
+                    <img style="height: 110px" src="<?php echo $user['photo'];?>" alt="">
                     <h3 class="h3"><?php echo $user['name'] ?></h3>
                 </div>
                 <div class="profile-cover__action bg--img" data-overlay="0.3">
-					<?php
-					if (!isset($_SESSION['id']) || $_SESSION['id'] != $user['id']) { ?>
+					<?php if (!isset($_SESSION['id']) || $_SESSION['id'] != $user['id']) { ?>
                         <button class="btn btn-rounded btn-info">
                             <i class="fa fa-comment"></i>
                             <span><a href="chat.php?id=<?php echo $user['id'] ?>"
@@ -64,7 +62,7 @@ if ($conexion->query($query)->num_rows == 1) {
             </div>
             <div class="panel">
                 <div class="panel-heading">
-                    <h3 class="panel-title mt-4">Publicaciones</h3>
+                    <h3 class="panel-title mt-5">Publicaciones</h3>
                 </div>
                 <ul class="panel-activity__list">
 					<?php while ($post = $posts->fetch_assoc()) { ?>
@@ -146,7 +144,6 @@ if ($conexion->query($query)->num_rows == 1) {
         </div>
     </div>
 </div>
-
 </body>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"

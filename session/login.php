@@ -2,7 +2,7 @@
 session_start();
 include '../config/database.php';
 if (isset($_SESSION['id'])) {
-    header("Location: ../home/home.php");
+	header("Location: ../home/home.php");
 }
 ?>
 <!DOCTYPE html>
@@ -21,14 +21,12 @@ if (isset($_SESSION['id'])) {
 <body>
 
 <div class="container">
-    <div>
-        <a href="../index.php"><i class="fas fa-arrow-left"></i> Volver</a>
-    </div>
+    <a href="../index.php"><i class="fas fa-arrow-left"></i> Volver</a>
     <div class="modal-dialog">
         <div class="modal-content" id="modal-login">
             <div class="modal-header">
                 <h4 class="modal-title title ms-5 pt-5">
-                    <span class="black">Iniciar sesion</span>
+                    <span class="black">Iniciar sesión</span>
                 </h4>
             </div>
             <div class="modal-body">
@@ -36,7 +34,7 @@ if (isset($_SESSION['id'])) {
                     <div class="mb-3">
                         <input autocomplete="off"
                                class="form-control"
-                               placeholder="Correo electronico"
+                               placeholder="Correo electrónico"
                                name="email"
                                type="text"
                                required>
@@ -60,32 +58,28 @@ if (isset($_SESSION['id'])) {
             </div>
         </div>
     </div>
+	<?php if (isset($_POST['start'])) {
+		$email = $_POST['email'];
+		$password = $_POST['password'];
+		$query = "SELECT * FROM usuarios WHERE email = '$email' AND password = '$password'";
+		$result = $conexion->query($query);
 
-    <?php
-    if (isset($_POST['start'])) {
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-        $query = "SELECT * FROM usuarios WHERE email = '$email' AND password = '$password'";
-        $result = $conexion->query($query);
-
-        if ($result->num_rows) {
-            $result = $result->fetch_assoc();
-            if ($result['email']) {
-                $_SESSION['id'] = $result['id'];
-                $_SESSION['name'] = $result['name'];
-                $_SESSION['photo'] = $result['photo'];
-                $_SESSION['role'] = $result['role'];
-                header('Location: ../home/home.php');
-            }
-        } else { ?>
+		if ($result->num_rows) {
+			$result = $result->fetch_assoc();
+			if ($result['email']) {
+				$_SESSION['id'] = $result['id'];
+				$_SESSION['name'] = $result['name'];
+				$_SESSION['photo'] = $result['photo'];
+				$_SESSION['role'] = $result['role'];
+				header('Location: ../home/home.php');
+			}
+		} else { ?>
             <div class="alert alert-danger alert-dismissible">
                 El correo o la contraseña no coinciden
             </div>
-            <?php
-        }
-    }
-    ?>
-
+			<?php
+		}
+	} ?>
 </div>
 </body>
 

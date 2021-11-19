@@ -2,7 +2,7 @@
 session_start();
 include '../config/database.php';
 if (isset($_SESSION['id'])) {
-    header("Location: ../home/home.php");
+	header("Location: ../home/home.php");
 }
 ?>
 <!DOCTYPE html>
@@ -20,10 +20,9 @@ if (isset($_SESSION['id'])) {
 </head>
 <body>
 <div class="container">
-    <div>
-        <a href="../index.php"><i class="fas fa-arrow-left"></i> Volver</a>
-    </div>
+    <a href="../index.php"><i class="fas fa-arrow-left"></i> Volver</a>
     <div class="modal-dialog">
+
         <div class="modal-content" id="modal-login">
             <div class="modal-header">
                 <h4 class="modal-title title ms-5 pt-5">
@@ -43,7 +42,7 @@ if (isset($_SESSION['id'])) {
                     <div class="mb-3">
                         <input autocomplete="off"
                                class="form-control"
-                               placeholder="Correo electronico"
+                               placeholder="Correo electrónico"
                                name="email"
                                type="email"
                                required>
@@ -73,52 +72,50 @@ if (isset($_SESSION['id'])) {
                 </form>
             </div>
         </div>
+
     </div>
-<?php
-include '../config/database.php';
-if (isset($_POST['register'])) {
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $password2 = $_POST['password2'];
-    $checkEmail = $conexion->query("SELECT * FROM usuarios WHERE email = '$email'");
+	<?php if (isset($_POST['register'])) {
+		$name = $_POST['name'];
+		$email = $_POST['email'];
+		$password = $_POST['password'];
+		$password2 = $_POST['password2'];
+		$checkEmail = $conexion->query("SELECT * FROM usuarios WHERE email = '$email'");
 
-    if ($checkEmail->num_rows >= 1) { ?>
-        <div class="alert alert-danger alert-dismissible">
-            El email ya está en uso por favor escoja otro o verifique si tiene una cuenta
-        </div>
-        <?php
-        die();
-    }
-    if ($password != $password2) { ?>
-        <div class="alert alert-danger alert-dismissible">
-            Las contraseñas no coinciden
-        </div>
-        <?php
-        die();
-    }
+		if ($checkEmail->num_rows >= 1) { ?>
+            <div class="alert alert-danger alert-dismissible">
+                El email ya está en uso por favor escoja otro o verifique si tiene una cuenta
+            </div>
+			<?php
+			die();
+		}
+		if ($password != $password2) { ?>
+            <div class="alert alert-danger alert-dismissible">
+                Las contraseñas no coinciden
+            </div>
+			<?php
+			die();
+		}
 
-    if ($checkEmail->num_rows == 0) {
-        $id = uniqid();
-        $image =  'https://i.stack.imgur.com/l60Hf.png';
-        $query = "INSERT INTO usuarios VALUES ('$id','$name', now(), '$email', '$password', '0', '$image', NULL)";
-        $result = $conexion->query($query);
-        if($result){
-            $_SESSION['id'] = $id;
-            $_SESSION['name'] = $name;
-            $_SESSION['photo'] = $image;
-            $_SESSION['role'] = 0;
-            header('Location: ../home/home.php');
-        }
-    } else { ?>
-        <div class="alert alert-danger alert-dismissible">
-            Faltan campos
-        </div>
-        <?php
-        die();
-    }
-} ?>
-
+		if ($checkEmail->num_rows == 0) {
+			$id = uniqid();
+			$image = 'https://i.stack.imgur.com/l60Hf.png';
+			$query = "INSERT INTO usuarios VALUES ('$id','$name', now(), '$email', '$password', '0', '$image', NULL)";
+			$result = $conexion->query($query);
+			if ($result) {
+				$_SESSION['id'] = $id;
+				$_SESSION['name'] = $name;
+				$_SESSION['photo'] = $image;
+				$_SESSION['role'] = 0;
+				header('Location: ../home/home.php');
+			}
+		} else { ?>
+            <div class="alert alert-danger alert-dismissible">
+                Faltan campos
+            </div>
+			<?php
+			die();
+		}
+	} ?>
 </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"

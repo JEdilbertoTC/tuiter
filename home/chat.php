@@ -5,14 +5,14 @@ if (!isset($_SESSION['id']) || !isset($_GET['id'])) {
 	header('Location: ../session/login.php');
 }
 
-if(!$conexion->query("SELECT * FROM usuarios WHERE id = '{$_GET['id']}'")->num_rows)
-    header('location: ../error/404.php');
+if (!$conexion->query("SELECT * FROM usuarios WHERE id = '{$_GET['id']}'")->num_rows)
+	header('location: ../error/404.php');
 
 $idUser1 = $_SESSION['id'];
 $idUser2 = $_GET['id'];
 
-if($idUser2 == $idUser1){
-    header('location: messages.php');
+if ($idUser2 == $idUser1) {
+	header('location: messages.php');
 }
 
 $idChatOrigin = null;
@@ -36,11 +36,10 @@ if ($conexion->query($query)->num_rows == 0) {
 	$query = "SELECT id FROM sala_chat WHERE id_user1 = '$idUser2' AND id_user2 = '$idUser1'";
 	$idChatDestiny = $conexion->query($query)->fetch_assoc()['id'];
 }
-
 ?>
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -115,8 +114,7 @@ if ($conexion->query($query)->num_rows == 0) {
 
             </form>
 
-			<?php
-			if (isset($_POST['send'])) {
+			<?php if (isset($_POST['send'])) {
 				$message = $_POST['message'];
 
 				$id = uniqid();
@@ -125,14 +123,11 @@ if ($conexion->query($query)->num_rows == 0) {
 
 				$query = "INSERT INTO mensajes VALUES ('$id', '$idChatDestiny', '$message', now(), '{$_SESSION['id']}')";
 				$conexion->query($query);
-			}
-			?>
+			} ?>
         </div>
     </div>
-
 </div>
 </body>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>

@@ -1,7 +1,7 @@
 <?php
 include '../config/database.php';
-if(!isset($_SESSION['id']))
-    header('location: ../session/login.php');
+if (!isset($_SESSION['id']))
+	header('location: ../session/login.php');
 $query = "SELECT * FROM usuarios WHERE id != '{$_SESSION['id']}'";
 $users = $conexion->query($query);
 
@@ -44,8 +44,7 @@ function extracted(mysqli_result $users, mysqli $conexion)
 									echo $lastMessage; ?>
                                 </p>
                                 <p class="ps-2 show-date pt-5">
-									<?php
-									if ($conexion->query($query)->num_rows > 0) {
+									<?php if ($conexion->query($query)->num_rows > 0) {
 										echo $conexion->query($query)->fetch_assoc()['date'];
 									} ?>
                                 </p>
@@ -80,7 +79,6 @@ if (!isset($_GET['q'])) { ?>
 			<?php extracted($users, $conexion); ?>
         </div>
     </div>
-
 	<?php
 }
 ?>

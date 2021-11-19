@@ -6,7 +6,7 @@ if (!isset($_SESSION['id']) && $_SESSION['role'] != '1')
 ?>
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -59,15 +59,13 @@ if (!isset($_SESSION['id']) && $_SESSION['role'] != '1')
                     <div class="modal-footer">
                         <div class="pb-5">
                             <button class="float-end start pt-2 pb-2 ps-4 pe-4 text-decoration-none"
-                                    href="#"
                                     name="register"
                                     type="submit">Registrarse
                             </button>
                         </div>
                     </div>
                 </form>
-				<?php
-				if (isset($_POST['register'])) {
+				<?php if (isset($_POST['register'])) {
 					$password = '123456';
 					$email = $_POST['email'];
 					$role = $_POST['role'];

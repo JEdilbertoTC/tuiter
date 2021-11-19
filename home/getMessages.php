@@ -12,8 +12,7 @@ $messages = $conexion->query($query);
 
 while ($message = $messages->fetch_assoc()) { ?>
 
-	<?php
-	if ($message['id_user'] == $_SESSION['id']) { ?>
+	<?php if ($message['id_user'] == $_SESSION['id']) { ?>
         <div class="d-flex justify-content-end mt-1">
             <div class="dropdown">
                 <a class="d-flex align-items-center text-black-50 text-decoration-none dropdown-toggle posts-settings p-2 fas fa-cog"
@@ -31,7 +30,7 @@ while ($message = $messages->fetch_assoc()) { ?>
                             <input type="text"
                                    name="id_message"
                                    hidden
-                                   value="<?php echo $message['id']?>">
+                                   value="<?php echo $message['id'] ?>">
                             <input type="text"
                                    name="redirect"
                                    hidden
@@ -39,7 +38,7 @@ while ($message = $messages->fetch_assoc()) { ?>
                             <input type="text"
                                    hidden
                                    name="user"
-                                   value="<?php echo $_SESSION['id']?>">
+                                   value="<?php echo $_SESSION['id'] ?>">
                             <input type="submit"
                                    class="dropdown-item"
                                    style="color: black"
@@ -52,11 +51,11 @@ while ($message = $messages->fetch_assoc()) { ?>
                             <input type="text"
                                    hidden
                                    name="id-message"
-                                   value="<?php echo $message['id']?>">
+                                   value="<?php echo $message['id'] ?>">
                             <input type="text"
                                    hidden
                                    name="redirect"
-                                   value="<?php echo $user2?>">
+                                   value="<?php echo $user2 ?>">
                             <input type="submit" class="dropdown-item" style="color: black"
                                    value="Eliminar para ambos" name="delete-message-for-all">
                         </form>
@@ -89,7 +88,7 @@ while ($message = $messages->fetch_assoc()) { ?>
                             <input type="text"
                                    name="redirect"
                                    hidden
-                                   value="<?php echo $user2?>">
+                                   value="<?php echo $user2 ?>">
                             <input type="text"
                                    name="id_message"
                                    hidden
@@ -97,7 +96,7 @@ while ($message = $messages->fetch_assoc()) { ?>
                             <input type="text"
                                    hidden
                                    name="user"
-                                   value="<?php echo $user2?>">
+                                   value="<?php echo $user2 ?>">
                             <input type="submit"
                                    class="dropdown-item"
                                    style="color: black"

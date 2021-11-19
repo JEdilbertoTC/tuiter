@@ -15,30 +15,29 @@ if (isset($_GET['q'])) {
 	?>
 
     <div class="col">
-        <div class="border">
-            <a href="home.php" class="back">
+        <div class="border p-1">
+            <a href="home.php" class="back d-flex align-items-center pt-2 ps-2">
                 <i class="fas fa-arrow-left"></i>
+                <p style="font-weight: 600; font-size: 18px" class="ps-2">Inicio</p>
             </a>
-            <p class="pb-3 ps-2" style="font-weight: 600; font-size: 18px">Personas</p>
+            <p class="ps-2 pt-4 pb-2" style="font-weight: 600; font-size: 18px">Personas</p>
 			<?php while ($user = $relatedUsers->fetch_assoc()) { ?>
-                <div class="d-flex flex-row pb-3 ps-2">
+                <a class="d-flex flex-row pb-3 ps-2 suggestion" href="profile.php?id=<?php echo $user['id'] ?>">
                     <div>
                         <img src="<?php echo $user['photo'] ?>" alt="" height="32" width="32" class="rounded-circle">
                     </div>
-                    <a href="profile.php?id=<?php echo $user['id'] ?>">
-                        <div class="d-flex flex-column ps-2">
-                            <p class="visit"
-                               style="font-weight: bold; text-transform: uppercase; font-size: 14px"><?php echo $user['name']; ?></p>
-                            <p style="font-size: 12px"><?php echo $user['email']; ?></p>
-                        </div>
-                    </a>
-                </div>
+                    <div class="d-flex flex-column ps-2">
+                        <p class="visit"
+                           style="font-weight: bold; text-transform: uppercase; font-size: 14px"><?php echo $user['name']; ?></p>
+                        <p style="font-size: 12px"><?php echo $user['email']; ?></p>
+                    </div>
+                </a>
 				<?php
 			} ?>
             <div class="mt-4">
-                <p class="pb-3 ps-2" style="font-weight: 600; font-size: 18px">Publicaciones</p>
+                <p class="pb-2 ps-2" style="font-weight: 600; font-size: 18px">Publicaciones</p>
 				<?php while ($post = $relatedPosts->fetch_assoc()) { ?>
-                    <div class="d-flex flex-column pb-2 ps-2">
+                    <div class="d-flex flex-column pb-2 ps-2 suggestion">
                         <div class="d-flex">
                             <div>
                                 <img src="<?php echo $post['photo'] ?>" alt="" width="32" height="32"
@@ -48,26 +47,24 @@ if (isset($_GET['q'])) {
                             <a class="d-flex align-items-center"
                                href="profile.php?id=<?php echo $post['id_user'] ?>">
                                 <div class="d-flex ps-2">
-                                    <p style="font-weight: bold; text-transform: uppercase; font-size: 14px"
-                                       class="visit">
+                                    <p class="visit bold" style="text-transform: uppercase">
 										<?php echo $post['name'] ?>
                                     </p>
-                                    <p style="font-size: 12px">
+                                    <p class="ps-1">
 										<?php echo $post['email'] ?>
                                     </p>
                                 </div>
                             </a>
                         </div>
 
-                    </div>
-                    <div class="pb-4 pe-3 ps-3 visitPost">
                         <a href="post.php?id=<?php echo $post['id_publicacion'] ?>">
-                            <div class="d-flex flex-column">
+                            <div class="pb-4 pe-3 ps-3">
                                 <p><?php echo $post['info']; ?></p>
+                                <p class="date-random" style="text-align: right"><?php echo $post['date'] ?></p>
                             </div>
                         </a>
-                    </div>
 
+                    </div>
 					<?php
 				} ?>
             </div>
@@ -79,15 +76,15 @@ if (isset($_GET['q'])) {
 } else { ?>
     <div class="col">
         <div class="cajaPublica">
-            <div class="border pt-2 ps-3 pb-2">
-                <p style="font-size: 24px; font-weight: bold">Inicio</p>
+            <div class="border ps-3">
+                <p style="font-size: 30px; font-weight: bold">Inicio</p>
             </div>
             <div class="">
                 <form class="cajaPublica" method="post">
                     <div class="border">
-                        <div class="d-flex justify-content-center align-items-center">
+                        <div class="d-flex justify-content-center align-items-center pt-1 pe-1">
                             <img src="<?php echo $_SESSION['photo'] ?>" alt="" width="32" height="32"
-                                 class="rounded-circle mb-4 ms-2">
+                                 class="rounded-circle mb-4 ms-2 pe-1">
                             <textarea class="texto cajaPublica form-control"
                                       rows="3"
                                       name="tweet"
@@ -135,7 +132,8 @@ if (isset($_GET['q'])) {
                                     <img src="<?php echo $post['photo'] ?>" alt="" width="32" height="32"
                                          class="rounded-circle">
                                     <a class="profile"
-                                       href="profile.php?id=<?php echo $post['id_user'] ?>"><?php echo $post['name'] ?></a>
+                                       href="profile.php?id=<?php echo $post['id_user'] ?>"><?php echo $post['name'] ?>
+                                    </a>
 									<?php echo $post['email'] ?>
                                 </div>
 								<?php if ($_SESSION['id'] == $post['id_user'] || $_SESSION['role'] == '1') { ?>
@@ -223,7 +221,6 @@ if (isset($_GET['q'])) {
 					<?php }
 				} ?>
             </div>
-
         </div>
     </div>
 	<?php

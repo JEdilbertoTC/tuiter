@@ -1,7 +1,7 @@
 <?php
 $conexion = mysqli_connect(
-    'localhost',
-    'root',
-    '',
-    'tuiter'
+	'localhost',
+	'root',
+	'',
+	'tuiter'
 );

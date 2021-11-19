@@ -16,11 +16,11 @@
     margin-bottom: 5px;
 }
 
-.owner-message:hover{
+.owner-message:hover {
     background-color: rgb(19, 116, 178);
 }
 
-.friend-message{
+.friend-message {
     margin-left: 10px;
     max-width: 50%;
     border-radius: 0 50px 50px 0;
@@ -32,10 +32,9 @@
     padding: .2em 20px .2em 5px;
     transition: all .5s ease;
     margin-bottom: 5px;
-
 }
 
-.friend-message:hover{
+.friend-message:hover {
     background-color: #d7d6d6;
 }
 

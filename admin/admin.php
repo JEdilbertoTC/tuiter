@@ -21,7 +21,6 @@ if ($_SESSION['role'] != 1 || !isset($_SESSION['id'])) {
     <title>Administrador</title>
 </head>
 <body>
-
 <div class="container">
     <div class="row">
 		<?php include "../home/navigation.php"; ?>
@@ -34,7 +33,7 @@ if ($_SESSION['role'] != 1 || !isset($_SESSION['id'])) {
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Nombre</th>
-                        <th scope="col">Correo Electronico</th>
+                        <th scope="col">Correo Electrónico</th>
                         <th scope="col">Fecha de Registro</th>
                         <th scope="col">ID</th>
                         <th scope="col">Rol</th>
@@ -43,7 +42,6 @@ if ($_SESSION['role'] != 1 || !isset($_SESSION['id'])) {
                     </thead>
                     <tbody id="body-table">
 					<?php
-
 					$query = "SELECT * FROM usuarios ORDER BY date DESC";
 					$users = $conexion->query($query);
 					if ($users) {
@@ -65,8 +63,7 @@ if ($_SESSION['role'] != 1 || !isset($_SESSION['id'])) {
                                         </a>
                                         <ul class="dropdown-menu"
                                             aria-labelledby="dropdownUser1">
-											<?php
-											if ($_SESSION['id'] != $user['id'] && $user['role'] != '1') { ?>
+											<?php if ($_SESSION['id'] != $user['id'] && $user['role'] != '1') { ?>
                                                 <li>
                                                     <form action="delete.php" method="post">
                                                         <input type="text" hidden name="id"
@@ -102,12 +99,10 @@ if ($_SESSION['role'] != 1 || !isset($_SESSION['id'])) {
 					} ?>
                     </tbody>
                 </table>
-
             </div>
         </div>
     </div>
 </div>
-
 </body>
 <script src="https://kit.fontawesome.com/bc96b95e59.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"

@@ -15,7 +15,7 @@ if (isset($_GET['id'])) {
 ?>
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -36,7 +36,7 @@ if (isset($_GET['id'])) {
                 <div>
                     <div class="d-flex pt-1 mb-3">
                         <a href="../index.php" class="pe-2 back d-flex align-items-center justify-content-center">
-                            <i class="fas fa-long-arrow-alt-left"></i>
+                            <i class="fas fa-arrow-left"></i>
                             <p style="font-size: 18px; font-weight: bold" class="ps-1">Publicación</p>
                         </a>
                     </div>
@@ -50,8 +50,7 @@ if (isset($_GET['id'])) {
                         <a href="profile.php?id=<?php echo $result['id_user'] ?>">
                             <div>
                                 <a href="profile.php?id=<?php echo $result['id_user'] ?>">
-                                    <p class="visit"
-                                       style="text-transform: uppercase; font-weight: bold; font-size: 12px">
+                                    <p class="visit profile">
 										<?php echo $result['name'] ?>
                                     </p>
                                     <p style="font-size: 12px">
@@ -85,9 +84,7 @@ if (isset($_GET['id'])) {
 					<?php
 				} else { ?>
                     <div class="mt-3 ps-4">
-                        <p>
-							<?php echo $result['info']; ?>
-                        </p>
+                        <p><?php echo $result['info']; ?></p>
                         <p class="pt-3 datePost">
 							<?php echo $result['date']; ?>
                         </p>
@@ -121,8 +118,7 @@ if (isset($_GET['id'])) {
                                         style="background: #fff; border: none"
                                         name="like"
                                         value="<?php echo $_GET['id'] ?>">
-									<?php
-									if ($likes->num_rows) { ?>
+									<?php if ($likes->num_rows) { ?>
                                         <i class="fas fa-heart icon-like"></i>
 									<?php } else { ?>
                                         <i class="far fa-heart"></i>

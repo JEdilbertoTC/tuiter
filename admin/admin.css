@@ -2,6 +2,7 @@
     cursor: pointer;
     display: none;
 }
+
 .dropdown-2 {
     cursor: pointer;
 }
@@ -18,5 +19,5 @@
 }
 
 .dropdown:hover {
-    color: #0d6efd ;
+    color: #0d6efd;
 }
