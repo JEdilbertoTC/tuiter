@@ -1,6 +1,9 @@
 <?php
 session_start();
-if (!isset($_SESSION['id'])) header('Location: ../../index.php');
+if (!isset($_SESSION['id']) || !isset($_GET['id'])) {
+	header('Location: ../error/404.php');
+	die();
+}
 
 include '../config/database.php';
 if (isset($_GET['id'])) {
@@ -90,7 +93,8 @@ if (isset($_GET['id'])) {
                         </p>
                     </div>
 					<?php
-				} ?>
+				}
+				?>
                 <div class="pt-4 pb-4 d-flex ps-4 flex-column">
                     <div class="d-flex align-items-center">
                         <p class="pe-2"><?php echo $result['likes'] ?></p>
@@ -131,17 +135,21 @@ if (isset($_GET['id'])) {
                         </div>
                     </div>
                 </div>
+				<?php if (!isset($_GET['edit'])) { ?>
+                    <div class="">
+                        <form method="post" action="">
+                            <div class="d-flex">
+                                <textarea class="form-control" name="response"></textarea>
+                                <button type="submit" name="comment" class="button ms-2">
+                                    Comentar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+					<?php
+				}
+				?>
 
-                <div class="">
-                    <form method="post" action="">
-                        <div class="d-flex">
-                            <textarea class="form-control" name="response"></textarea>
-                            <button type="submit" name="comment" class="button ms-2">
-                                Comentar
-                            </button>
-                        </div>
-                    </form>
-                </div>
 				<?php
 				if (isset($_POST['comment'])) {
 

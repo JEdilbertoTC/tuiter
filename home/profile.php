@@ -35,7 +35,7 @@ if ($conexion->query($query)->num_rows == 1) {
         <div class="col">
             <div class="panel profile-cover">
                 <div class="profile-cover__img">
-                    <img style="height: 110px" src="<?php echo $user['photo'];?>" alt="">
+                    <img style="height: 110px" src="<?php echo $user['photo']; ?>" alt="">
                     <h3 class="h3"><?php echo $user['name'] ?></h3>
                 </div>
                 <div class="profile-cover__action bg--img" data-overlay="0.3">
@@ -45,14 +45,14 @@ if ($conexion->query($query)->num_rows == 1) {
                             <span><a href="chat.php?id=<?php echo $user['id'] ?>"
                                      style="text-decoration: none; color: #fff">Mensaje</a></span>
                         </button>
-
 						<?php
 					} else { ?>
                         <button class="btn btn-rounded" style="cursor: default; border: none; outline: none">
                             <span></span>
                         </button>
 						<?php
-					} ?>
+					}
+					?>
                 </div>
                 <div class="profile-cover__info">
                     <ul class="nav">
@@ -69,7 +69,7 @@ if ($conexion->query($query)->num_rows == 1) {
                         <li>
                             <div class="activity__list__header d-flex justify-content-between">
                                 <div>
-                                    <img src="<?php echo $user['photo'] ?>>" alt="" style="height: 36px"/>
+                                    <img src="<?php echo $user['photo'] ?>" alt="" style="height: 36px"/>
                                     <a href="profile.php?id=<?php echo $userId ?>"
                                        class="text-uppercase user"><?php echo $user['name'] ?></a>
                                 </div>
@@ -100,7 +100,9 @@ if ($conexion->query($query)->num_rows == 1) {
                                             </li>
                                         </ul>
                                     </div>
-								<?php } ?>
+									<?php
+								}
+								?>
                             </div>
                             <div class="activity__list__body entry-content ms-3">
                                 <p>
@@ -137,7 +139,8 @@ if ($conexion->query($query)->num_rows == 1) {
                             </div>
                         </li>
 						<?php
-					} ?>
+					}
+					?>
                 </ul>
 
             </div>

@@ -1,8 +1,10 @@
 <?php
 session_start();
 include '../config/database.php';
-if (!isset($_SESSION['id']) && $_SESSION['role'] != '1')
+if (!isset($_SESSION['id']) && $_SESSION['role'] != '1') {
 	header('location: ../session/login.php');
+	die();
+}
 $id = $_POST['id'];
 $query = "UPDATE usuarios SET role = 1 WHERE id = '$id'";
 $result = $conexion->query($query);

@@ -1,6 +1,7 @@
 <?php
 session_start();
 include '../config/database.php';
+
 if (isset($_POST['like']) && isset($_SESSION['id'])) {
 	$idUser = $_SESSION['id'];
 	$idPost = $_POST['like'];
@@ -21,4 +22,7 @@ if (isset($_POST['like']) && isset($_SESSION['id'])) {
 	}
 	$conexion->query($query);
 	header("Location: {$url}");
+} else {
+	header('location: home.php');
+	die();
 }

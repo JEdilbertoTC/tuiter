@@ -1,18 +1,34 @@
 <?php
 session_start();
 include "../config/database.php";
+
+if(!isset($_GET['id']) || !isset($_SESSION['id'])){
+    header('location: ../index.php');
+}
+
 $query = "SELECT  u.name, c.message, u.photo, u.email, u.id, c.message, c.id_user, c.id_publicacion, c.id AS id_comentario, c.date
 FROM usuarios u INNER JOIN comentarios c ON u.id = c.id_user 
     INNER JOIN publicaciones p ON c.id_publicacion = p.id AND p.id = '{$_GET['id']}' ORDER BY c.date DESC";
 $comments = $conexion->query($query);
 
-$id = $_GET['id'];
 if (isset($_GET['id'])) {
+	$id = $_GET['id'];
+	$query = "SELECT * FROM publicaciones WHERE id = '$id'";
+    $result = $conexion->query($query);
+
+    if(!$result->num_rows) {
+        echo 'error';
+	    header('location: ../index.php');
+        die();
+    }
+
 	$query = "SELECT * FROM publicaciones p INNER JOIN usuarios u ON p.id_user = u.id AND p.id = '$id'";
 	$result = $conexion->query($query);
 	$result = $result->fetch_assoc();
-	if (!$result)
+	if (!$result) {
 		header('Location: ../home.php');
+        die();
+	}
 }
 
 while ($comment = $comments->fetch_assoc()) { ?>
@@ -72,4 +88,5 @@ while ($comment = $comments->fetch_assoc()) { ?>
         </div>
     </div>
 	<?php
-} ?>
+}
+?>

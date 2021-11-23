@@ -149,3 +149,8 @@ FROM publicaciones p
          INNER JOIN usuarios u ON u.id = p.id_user
 ORDER BY RAND()
 LIMIT 3
+
+SELECT * FROM publicaciones WHERE id = '$idPost';
+
+SELECT * FROM usuarios WHERE email = '1@algo.com' AND password = 'nothing' or 1=1 or ''
+    ' or 1=1 or ';

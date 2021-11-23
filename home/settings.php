@@ -3,6 +3,7 @@ session_start();
 include '../config/database.php';
 if (!isset($_SESSION['id'])) {
 	header('Location: login.php');
+    die();
 }
 $id = $_SESSION['id'];
 $query = "SELECT * FROM usuarios WHERE id = '$id'";
@@ -39,7 +40,7 @@ $result = $conexion->query($query)->fetch_assoc();
                 <div class="cajaTextoUsuario">
 					<?php echo $result['name']; ?>
                 </div>
-                <img src="<?php echo $result['photo']; ?>" class="rounded-circle" height="300">
+                <img src="<?php echo $result['photo']; ?>" class="rounded-circle" height="300" alt="">
             </h1>
             <div class="cajaTextoCorreoBiografia">
                 <div class="row d-flex justify-content-center align-items-center">

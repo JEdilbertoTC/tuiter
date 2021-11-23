@@ -98,7 +98,9 @@ if ($conexion->query($query)->num_rows == 0) {
 
             <div class="d-flex">
                 <a href="messages.php"><i class="fas fa-arrow-left"></i></a>
-                <p class="ps-2" style="font-weight: bold; text-transform: uppercase"><?php echo $chatWith['name'] ?></p>
+                <a class="ps-2 profile" style="font-weight: bold; text-transform: uppercase" href="profile.php?id=<?php echo $chatWith['id']?>">
+                    <?php echo $chatWith['name'] ?>
+                </a>
             </div>
 
             <div class="chat border"></div>

@@ -8,9 +8,8 @@ if (isset($_GET['q'])) {
 	$query = "SELECT * FROM usuarios WHERE name LIKE '%$q%'";
 	$relatedUsers = $conexion->query($query);
 
-	$query = "SELECT u.name, u.email, u.photo AS photo, p.date, p.info, p.id AS id_publicacion, p.id_user, p.likes, p.comments
-                FROM publicaciones p
-                INNER JOIN usuarios u ON u.id = p.id_user AND p.info LIKE '%$q%' ORDER BY date DESC";
+	$query = "SELECT u.name, u.email, u.photo AS photo, p.date, p.info, p.id AS id_publicacion, p.id_user, p.likes, 
+       p.comments FROM publicaciones p INNER JOIN usuarios u ON u.id = p.id_user AND p.info LIKE '%$q%' ORDER BY date DESC";
 	$relatedPosts = $conexion->query($query);
 	?>
 
@@ -33,7 +32,8 @@ if (isset($_GET['q'])) {
                     </div>
                 </a>
 				<?php
-			} ?>
+			}
+			?>
             <div class="mt-4">
                 <p class="pb-2 ps-2" style="font-weight: 600; font-size: 18px">Publicaciones</p>
 				<?php while ($post = $relatedPosts->fetch_assoc()) { ?>
@@ -66,7 +66,8 @@ if (isset($_GET['q'])) {
 
                     </div>
 					<?php
-				} ?>
+				}
+				?>
             </div>
         </div>
     </div>
@@ -84,7 +85,7 @@ if (isset($_GET['q'])) {
                     <div class="border">
                         <div class="d-flex justify-content-center align-items-center pt-1 pe-1">
                             <img src="<?php echo $_SESSION['photo'] ?>" alt="" width="32" height="32"
-                                 class="rounded-circle mb-4 ms-2 pe-1">
+                                 class="rounded-circle mb-4 ms-2">
                             <textarea class="texto cajaPublica form-control"
                                       rows="3"
                                       name="tweet"
@@ -116,25 +117,27 @@ if (isset($_GET['q'])) {
 						$query = "INSERT INTO publicaciones VALUES('$id','$post', now(),'$userId', 0, 0)";
 						$result = $conexion->query($query);
 					}
-				} ?>
+				}
+				?>
             </div>
             <div id="div-posts">
 				<?php
-				$query = "SELECT u.name, u.email, u.photo AS photo, p.date, p.info, p.id AS id_publicacion, p.id_user, p.likes, p.comments
-                FROM publicaciones p
-                INNER JOIN usuarios u ON u.id = p.id_user ORDER BY date DESC";
+				$query = "SELECT u.name, u.email, u.photo AS photo, p.date, p.info, p.id AS id_publicacion, p.id_user,
+       p.likes, p.comments FROM publicaciones p INNER JOIN usuarios u ON u.id = p.id_user ORDER BY date DESC";
 				$posts = $conexion->query($query);
 				if ($posts) {
 					while ($post = $posts->fetch_assoc()) { ?>
                         <div class="pt-3 pb-3 ps-3 border <?php echo $post['id_publicacion'] ?> post pe-3 post-container">
                             <div class="d-flex justify-content-between">
-                                <div>
+                                <div class="d-flex justify-content-between align-items-center">
                                     <img src="<?php echo $post['photo'] ?>" alt="" width="32" height="32"
                                          class="rounded-circle">
-                                    <a class="profile"
-                                       href="profile.php?id=<?php echo $post['id_user'] ?>"><?php echo $post['name'] ?>
-                                    </a>
-									<?php echo $post['email'] ?>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <a class="profile"
+                                           href="profile.php?id=<?php echo $post['id_user'] ?>"><?php echo $post['name'] ?>
+                                        </a>
+										<?php echo $post['email'] ?>
+                                    </div>
                                 </div>
 								<?php if ($_SESSION['id'] == $post['id_user'] || $_SESSION['role'] == '1') { ?>
                                     <div class="dropdown">
@@ -168,7 +171,9 @@ if (isset($_GET['q'])) {
                                 <div class="body">
                                     <div class="wrap info ps-4">
                                         <a href="post.php?id=<?php echo $post['id_publicacion']; ?>">
-                                            <p id="pp-<?php echo $post['id_publicacion'] ?>"><?php echo $post['info']; ?></p>
+                                            <p id="pp-<?php echo $post['id_publicacion'] ?>">
+												<?php echo $post['info']; ?>
+                                            </p>
                                         </a>
                                     </div>
                                 </div>
@@ -181,8 +186,8 @@ if (isset($_GET['q'])) {
 												$actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 												echo $actual_link; ?>" hidden>
 												<?php
-												$query = "SELECT * FROM likes WHERE id_publicacion ='{$post['id_publicacion']}'
-                                AND id_user = '{$_SESSION['id']}'";
+												$query = "SELECT * FROM likes 
+WHERE id_publicacion ='{$post['id_publicacion']}' AND id_user = '{$_SESSION['id']}'";
 												$result = $conexion->query($query);
 												?>
                                                 <button type="submit" class="border-0 like-button"
@@ -203,12 +208,10 @@ if (isset($_GET['q'])) {
                                         <div class="comments ps-2">
                                             <div>
                                                 <a href="post.php?id=<?php echo $post['id_publicacion'] ?>"
-                                                   class="far fa-comment"
+                                                   class="far fa-comment comments"
                                                    style="text-decoration: none; color: #000">
+													<?php echo $post['comments']; ?>
                                                 </a>
-                                            </div>
-                                            <div class="ps-2">
-												<?php echo $post['comments']; ?>
                                             </div>
                                         </div>
                                     </div>
@@ -218,10 +221,13 @@ if (isset($_GET['q'])) {
                                 </div>
                             </div>
                         </div>
-					<?php }
-				} ?>
+						<?php
+					}
+				}
+				?>
             </div>
         </div>
     </div>
 	<?php
-} ?>
+}
+?>

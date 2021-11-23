@@ -2,9 +2,17 @@
 include "../config/database.php";
 session_start();
 
+if (!isset($_SESSION['id']) || !isset($_GET['id'])) {
+	header('location: ../index.php');
+}
+
 $idChat = $_GET['id'];
 
 $query = "SELECT * FROM sala_chat WHERE id = '$idChat'";
+$result = $conexion->query($query);
+if (!$result->num_rows) {
+	header('location: ../error/404.php');
+}
 $user2 = $conexion->query($query)->fetch_assoc()['id_user2'];
 
 $query = "SELECT * FROM mensajes WHERE id_chat = '$idChat'";
@@ -108,5 +116,6 @@ while ($message = $messages->fetch_assoc()) { ?>
             </div>
         </div>
 		<?php
-	} ?>
-<?php } ?>
+	}
+}
+?>

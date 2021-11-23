@@ -1,3 +1,8 @@
+<?php if (!isset($_SESSION['id'])) {
+	header('location: ../index.php');
+}
+?>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light order-first sticky-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="../home/home.php"> <i class="fab fa-twitter iconoPajaro"></i></a>
@@ -12,7 +17,8 @@
                         <a class="nav-link" aria-current="page" href="../admin/admin.php">Admin</a>
                     </li>
 					<?php
-				} ?>
+				}
+				?>
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="../home/home.php">Inicio</a>
                 </li>

@@ -170,6 +170,8 @@ textarea {
     color: #000000;
     font-weight: bold;
     text-transform: uppercase;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 
 .profile:hover {
@@ -181,6 +183,7 @@ textarea {
 .comments {
     display: flex;
     flex-direction: row;
+    text-decoration: none;
 }
 
 .border {

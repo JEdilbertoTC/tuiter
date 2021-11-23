@@ -1,6 +1,11 @@
 <?php
 session_start();
 include '../config/database.php';
+
+if(!isset($_SESSION['id']) || !isset($_POST['submit'])) {
+	header('location: ../index.php');
+}
+
 $id = $_SESSION['id'];
 if (isset($_POST['submit'])) {
 	$directory = '/upload/';

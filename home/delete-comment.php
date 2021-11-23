@@ -1,6 +1,11 @@
 <?php
 include '../config/database.php';
 
+if(!isset($_SESSION['id']) || isset($_POST['delete-comment'])) {
+	header('location: ../index.php');
+}
+
+
 if (isset($_POST['delete-comment'])) {
 	$idComment = $_POST['id-comment'];
 	$idPost = $_POST['id-post'];

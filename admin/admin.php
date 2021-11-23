@@ -3,6 +3,7 @@ session_start();
 include '../config/database.php';
 if ($_SESSION['role'] != 1 || !isset($_SESSION['id'])) {
 	header('Location: ../session/login.php');
+    die();
 }
 ?>
 
@@ -87,7 +88,8 @@ if ($_SESSION['role'] != 1 || !isset($_SESSION['id'])) {
                                                     </form>
                                                 </li>
 												<?php
-											} ?>
+											}
+                                            ?>
 
                                         </ul>
                                     </div>
@@ -96,7 +98,8 @@ if ($_SESSION['role'] != 1 || !isset($_SESSION['id'])) {
 							<?php
 							$index++;
 						}
-					} ?>
+					}
+                    ?>
                     </tbody>
                 </table>
             </div>

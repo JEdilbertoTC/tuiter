@@ -1,7 +1,7 @@
 <?php
 include '../config/database.php';
 if (!isset($_SESSION['id']))
-	header('location: ../session/login.php');
+	header('location: ../index.php');
 $query = "SELECT * FROM usuarios WHERE id != '{$_SESSION['id']}'";
 $users = $conexion->query($query);
 
@@ -24,7 +24,7 @@ function extracted(mysqli_result $users, mysqli $conexion)
                                    style="font-weight: bold; text-transform: uppercase; font-size: 12px">
 									<?php echo $user['name'] ?>
                                 </p>
-                                <p style="font-size: 10px"><?php echo $user['email'] ?></p>
+                                <p style="font-size: 12px"><?php echo $user['email'] ?></p>
                             </div>
                             <div class="d-flex justify-content-between pb-2">
                                 <p class="ps-2 max">
@@ -41,12 +41,14 @@ function extracted(mysqli_result $users, mysqli $conexion)
 									if ($conexion->query($query)->num_rows > 0) {
 										$lastMessage = $conexion->query($query)->fetch_assoc()['mensaje'];
 									}
-									echo $lastMessage; ?>
+									echo $lastMessage;
+                                    ?>
                                 </p>
                                 <p class="ps-2 show-date pt-5">
 									<?php if ($conexion->query($query)->num_rows > 0) {
 										echo $conexion->query($query)->fetch_assoc()['date'];
-									} ?>
+									}
+                                    ?>
                                 </p>
                             </div>
                         </div>

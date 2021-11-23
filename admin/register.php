@@ -1,8 +1,10 @@
 <?php
 session_start();
 include '../config/database.php';
-if (!isset($_SESSION['id']) && $_SESSION['role'] != '1')
+if (!isset($_SESSION['id']) && $_SESSION['role'] != '1') {
 	header('Location: login.php');
+	die();
+}
 ?>
 
 <!doctype html>
@@ -93,7 +95,8 @@ if (!isset($_SESSION['id']) && $_SESSION['role'] != '1')
                         </div>
 						<?php
 					}
-				} ?>
+				}
+                ?>
             </div>
         </div>
     </div>

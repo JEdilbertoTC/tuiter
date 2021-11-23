@@ -1,7 +1,7 @@
 <?php
 session_start();
-if (!isset($_SESSION['id'])) {
-	header('Location: ../session/login.php');
+if (!isset($_SESSION['id']) || !isset($_POST['delete-message-for-me'])) {
+	header('Location: ../index.php');
 }
 include '../config/database.php';
 if (isset($_POST['delete-message-for-me'])) {
