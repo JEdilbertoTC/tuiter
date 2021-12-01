@@ -102,11 +102,11 @@ if (isset($_GET['id'])) {
                     </div>
 
                     <div class="d-flex flex-row pt-3 justify-content-between pe-3 ps-3 align-items-center">
-                        <div>
-                            <a href=""><i class="fas fa-comment"></i></a>
+                        <div class="icon-comment">
+                            <a href=""><i class="far fa-comment icon-comment"></i></a>
                         </div>
-                        <div>
-                            <a href=""><i class="fas fa-retweet"></i></a>
+                        <div class="icon-retuit">
+                            <a href=""><i class="fas fa-retweet icon-retuit"></i></a>
                         </div>
                         <div>
                             <form action="like.php" method="post">
@@ -123,15 +123,19 @@ if (isset($_GET['id'])) {
                                         name="like"
                                         value="<?php echo $_GET['id'] ?>">
 									<?php if ($likes->num_rows) { ?>
-                                        <i class="fas fa-heart icon-like"></i>
+                                        <div class="icon-heart">
+                                            <i class="fas fa-heart icon-like"></i>
+                                        </div>
 									<?php } else { ?>
-                                        <i class="far fa-heart"></i>
+                                        <div class="icon-heart">
+                                            <i class="far fa-heart"></i>
+                                        </div>
 									<?php } ?>
                                 </button>
                             </form>
                         </div>
-                        <div>
-                            <a href=""> <i class="fas fa-external-link-alt"></i></a>
+                        <div class="icon-comment">
+                            <a href=""> <i class="fas fa-external-link-alt icon-comment"></i></a>
                         </div>
                     </div>
                 </div>
@@ -139,7 +143,7 @@ if (isset($_GET['id'])) {
                     <div class="">
                         <form method="post" action="">
                             <div class="d-flex">
-                                <textarea class="form-control" name="response"></textarea>
+                                <textarea class="form-control" name="response" placeholder="Tuitea tu respuesta"></textarea>
                                 <button type="submit" name="comment" class="button ms-2">
                                     Comentar
                                 </button>

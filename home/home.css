@@ -6,25 +6,42 @@
     font-family: 'Inter', sans-serif;
 }
 
-.iconoPajaro {
+.icon-bird {
     color: rgb(29, 155, 240);
     font-size: 25px;
 }
 
-.texto {
+.posting {
     font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    font-weight: normal;
+    border: none;
+    padding-bottom: 0;
+    border-bottom: #d3d2d2 1px solid;
 }
 
-.cajaInicio:hover {
+.post-container {
+    border: none;
+    padding-bottom: 0;
+    border-bottom: #d3d2d2 1px solid;
+}
+
+.posts-container {
+    border: none;
+    padding-bottom: 0;
+    border-bottom: #d3d2d2 1px solid;
+}
+
+.index-container:hover {
     color: rgb(241, 241, 241);
 }
 
-.iconoCasa {
+.icon-home {
     color: rgb(241, 241, 241);
     font-size: 24px;
 }
 
-.cajaPerfil {
+.profile-container {
     width: 55%;
     padding: 15px 0 0;
     display: flex;
@@ -34,13 +51,12 @@
     transition: all .2s ease;
 }
 
-
-.iconoPerfil {
+.icon-profile {
     color: #1e2125;
     font-size: 25px;
 }
 
-.cajaMensajes {
+.messages-container {
     width: 55%;
     padding: 15px 0 0;
     display: flex;
@@ -49,23 +65,23 @@
     transition: all .2s ease;
 }
 
-.cajaMensajes:hover {
+.messages-container:hover {
     background-color: rgb(225, 222, 222);
 }
 
-.iconoMensaje {
+.icon-message {
     color: #1e2125;
     font-size: 25px;
 }
 
-.menuUsuario {
+.user-menu {
     background-color: white;
     border: #dedede 1px solid;
     border-radius: 15px;
     transition: all 1s ease;
 }
 
-.textoMenuUsuario {
+.text-user-menu {
     font-size: 1.4em;
     font-family: 'Inter', sans-serif;
 }
@@ -74,7 +90,7 @@ li {
     transition: all .5s ease;
 }
 
-.menuUsuario li:hover {
+.user-menu li:hover {
     background-color: rgb(225, 222, 222);
 }
 
@@ -99,7 +115,7 @@ li {
     font-weight: bold;
 }
 
-.barraNavegacion {
+.navigation-bar {
     background-color: rgb(241, 241, 241);
     border: none;
     border-radius: 50px;
@@ -109,7 +125,7 @@ li {
     transition: all .2s ease;
 }
 
-.barraNavegacion:focus {
+.navigation-bar:focus {
     outline: none;
 }
 
@@ -143,7 +159,7 @@ textarea {
     color: rgb(29, 155, 240);
 }
 
-.iconoPajaro:hover {
+.icon-bird:hover {
     color: rgb(43, 124, 178);
 }
 
@@ -166,12 +182,12 @@ textarea {
 }
 
 .profile {
+    font-family: 'Inter', sans-serif;
     text-decoration: none;
     color: #000000;
     font-weight: bold;
     text-transform: uppercase;
-    padding-left: 2px;
-    padding-right: 2px;
+    /*CAMBIAR ESTO A 2PX*/
 }
 
 .profile:hover {
@@ -202,15 +218,22 @@ textarea {
 .date {
     color: #626161;
     opacity: 0;
+    transition: all .5s ease-out;
 }
 
 .email, .date-random {
     color: #626161;
 }
 
+
 .date-random {
     text-align: right;
     opacity: 0;
+    transition: all .5s ease-out;
+}
+
+.post-container {
+    transition: all .5s ease-out;
 }
 
 .suggestion:hover .date-random, .post-container:hover .date {
@@ -247,6 +270,10 @@ p {
     text-decoration: underline;
 }
 
+.back {
+    transition: all .5s ease-out;
+}
+
 .back:hover {
     color: #0d6efd;
 }
@@ -257,4 +284,125 @@ p {
 
 .post:hover {
     background: rgb(239, 241, 241);
+}
+
+.icon-index {
+    color: rgb(29, 155, 240);
+    cursor: pointer;
+    transition: all .5s ease;
+}
+
+.icon-index:hover {
+    color: rgb(43, 124, 178);
+}
+
+.circle-settings {
+    background-color: transparent;
+    border-radius: 50px;
+    /*opacity: 0;*/
+    transition: all .5s ease-out;
+}
+
+.fa-cog {
+    transition: all .5s ease-out;
+}
+
+.circle-settings:hover {
+    background-color: rgba(0, 172, 238, .1);
+}
+
+.circle-settings:hover .fa-cog {
+    color: rgb(0, 172, 238) !important;
+}
+
+.icon-trash {
+    margin-left: 10%;
+    margin-right: -5%;
+    color: red;
+    z-index: 2;
+}
+
+.circle-heart {
+    background-color: white;
+    transition: all .5s ease;
+}
+
+.post-container:hover .circle-heart:hover {
+    background: rgba(255, 0, 0, .1);
+    border-radius: 50px;
+}
+
+.post-container:hover .circle-heart {
+    background: #eff1f0;
+    border-radius: 50px;
+}
+
+.circle-comment {
+    background-color: white;
+    transition: all .5s ease;
+}
+
+.post-container:hover .circle-comment:hover {
+    background: rgba(0, 172, 238, .3);
+    border-radius: 50px;
+}
+
+.post-container:hover .circle-comment {
+    background: #eff1f0;
+    border-radius: 50px;
+}
+
+.interest {
+    font-family: 'Inter', sans-serif;
+    font-size: 100%;
+}
+
+.icon-comment {
+    background-color: transparent;
+    padding: 5px;
+    border-radius: 100%;
+    transition: all .5s ease;
+}
+
+.icon-comment:hover {
+    background: rgba(0, 172, 238, .3);
+}
+
+.icon-comment:hover .icon-comment {
+    color: rgb(0, 172, 238);
+}
+
+.icon-retuit {
+    background-color: white;
+    padding: 5px;
+    border-radius: 100%;
+    transition: all .5s ease;
+}
+
+.icon-retuit:hover {
+    background-color: rgba(137, 255, 137, 0.54);
+}
+
+.icon-retuit:hover .icon-retuit {
+    color: rgb(86, 157, 86);
+}
+
+.icon-heart {
+    background-color: white;
+    padding: 5px;
+    border-radius: 100%;
+    transition: all .5s ease;
+}
+
+.icon-heart:hover {
+    background-color: rgba(255, 0, 0, .1);
+}
+
+.size {
+    max-width: 67%;
+}
+
+.date-comment {
+    color: #626161;
+    text-align: right;
 }

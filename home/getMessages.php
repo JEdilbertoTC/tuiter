@@ -70,7 +70,7 @@ while ($message = $messages->fetch_assoc()) { ?>
                     </li>
                 </ul>
             </div>
-            <p class="owner-message">
+            <p class="own-message">
 				<?php echo $message['mensaje'] ?>
             </p>
         </div>

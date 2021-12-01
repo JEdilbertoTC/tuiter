@@ -3,7 +3,7 @@ session_start();
 include '../config/database.php';
 if ($_SESSION['role'] != 1 || !isset($_SESSION['id'])) {
 	header('Location: ../session/login.php');
-    die();
+	die();
 }
 ?>
 
@@ -56,41 +56,43 @@ if ($_SESSION['role'] != 1 || !isset($_SESSION['id'])) {
                                 <td><?php echo $user['id'] ?></td>
                                 <td><?php echo $user['role'] == 1 ? 'Administrador' : 'Usuario' ?></td>
                                 <td>
-                                    <div class="dropdown d-flex justify-content-center align-items-center">
-                                        <a href="#"
-                                           class="d-flex align-items-center text-black-50 text-decoration-none dropdown-toggle"
+                                    <div class="dropdown d-flex justify-content-center align-items-center ">
+                                        <a class="d-flex align-items-center text-black-50 text-decoration-none dropdown-toggle"
                                            id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                                             <i class="fas fa-user-edit"></i>
                                         </a>
-                                        <ul class="dropdown-menu"
-                                            aria-labelledby="dropdownUser1">
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownUser1">
 											<?php if ($_SESSION['id'] != $user['id'] && $user['role'] != '1') { ?>
-                                                <li>
-                                                    <form action="delete.php" method="post">
-                                                        <input type="text" hidden name="id"
-                                                               value="<?php echo $user['id'] ?>">
-                                                        <button type="submit"
-                                                                class="dropdown-item"
-                                                                name="delete">
-                                                            Eliminar
-                                                        </button>
-                                                    </form>
-                                                </li>
-                                                <li>
-                                                    <form action="do-admin.php" method="post">
-                                                        <input type="text" hidden name="id"
-                                                               value="<?php echo $user['id'] ?>">
-                                                        <button type="submit"
-                                                                class="dropdown-item"
-                                                                name="delete">
-                                                            Hacer Admin
-                                                        </button>
-                                                    </form>
-                                                </li>
+                                                <div class="dropdown-item">
+                                                    <li>
+                                                        <form action="do-admin.php" method="post">
+                                                            <input type="text" hidden name="id"
+                                                                   value="<?php echo $user['id'] ?>">
+                                                            <button type="submit"
+                                                                    class="dropdown-item"
+                                                                    name="delete">
+                                                                Ascender a Administrador
+                                                            </button>
+                                                        </form>
+                                                    </li>
+                                                </div>
+                                                <div class="dropdown-item">
+                                                    <li>
+                                                        <form action="delete.php" method="post">
+                                                            <input type="text" hidden name="id"
+                                                                   value="<?php echo $user['id'] ?>">
+                                                            <button type="submit"
+                                                                    class="dropdown-item"
+                                                                    style="color: red"
+                                                                    name="delete">
+                                                                Eliminar
+                                                            </button>
+                                                        </form>
+                                                    </li>
+                                                </div>
 												<?php
 											}
-                                            ?>
-
+											?>
                                         </ul>
                                     </div>
                                 </td>
@@ -99,7 +101,7 @@ if ($_SESSION['role'] != 1 || !isset($_SESSION['id'])) {
 							$index++;
 						}
 					}
-                    ?>
+					?>
                     </tbody>
                 </table>
             </div>

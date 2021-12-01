@@ -20,7 +20,7 @@ if (isset($_SESSION['id']))
 <body>
 <div class="container-fluid">
     <div class="row">
-        <div class="fondo-left col-12 d-flex align-items-center justify-content-center chico order-last col col-xl-6 order-xl-first">
+        <div class="fondo-left col-12 d-flex align-items-center justify-content-center small order-last col col-xl-6 order-xl-first">
             <i class="fab fa-twitter twitter"></i>
         </div>
         <div

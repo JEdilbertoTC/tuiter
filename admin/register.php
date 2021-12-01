@@ -62,7 +62,7 @@ if (!isset($_SESSION['id']) && $_SESSION['role'] != '1') {
                         <div class="pb-5">
                             <button class="float-end start pt-2 pb-2 ps-4 pe-4 text-decoration-none"
                                     name="register"
-                                    type="submit">Registrarse
+                                    type="submit">Registrar
                             </button>
                         </div>
                     </div>

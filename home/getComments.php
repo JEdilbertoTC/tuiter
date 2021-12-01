@@ -2,32 +2,31 @@
 session_start();
 include "../config/database.php";
 
-if(!isset($_GET['id']) || !isset($_SESSION['id'])){
-    header('location: ../index.php');
+if (!isset($_GET['id']) || !isset($_SESSION['id'])) {
+	header('location: ../index.php');
 }
 
 $query = "SELECT  u.name, c.message, u.photo, u.email, u.id, c.message, c.id_user, c.id_publicacion, c.id AS id_comentario, c.date
 FROM usuarios u INNER JOIN comentarios c ON u.id = c.id_user 
     INNER JOIN publicaciones p ON c.id_publicacion = p.id AND p.id = '{$_GET['id']}' ORDER BY c.date DESC";
 $comments = $conexion->query($query);
-
+$result = null;
 if (isset($_GET['id'])) {
 	$id = $_GET['id'];
 	$query = "SELECT * FROM publicaciones WHERE id = '$id'";
-    $result = $conexion->query($query);
+	$result = $conexion->query($query);
 
-    if(!$result->num_rows) {
-        echo 'error';
-	    header('location: ../index.php');
-        die();
-    }
+	if (!$result->num_rows) {
+		header('location: ../index.php');
+		die();
+	}
 
 	$query = "SELECT * FROM publicaciones p INNER JOIN usuarios u ON p.id_user = u.id AND p.id = '$id'";
 	$result = $conexion->query($query);
 	$result = $result->fetch_assoc();
 	if (!$result) {
 		header('Location: ../home.php');
-        die();
+		die();
 	}
 }
 
@@ -52,7 +51,7 @@ while ($comment = $comments->fetch_assoc()) { ?>
                 </div>
             </div>
 			<?php if ($result['id'] == $_SESSION['id'] || $_SESSION['id'] == $comment['id_user']) { ?>
-                <div class="dropdown wrap">
+                <div class="dropdown wrap circle-settings">
                     <a class="d-flex align-items-center text-black-50 text-decoration-none dropdown-toggle posts-settings p-2 fas fa-cog"
                        id="optionsPosts"
                        data-bs-toggle="dropdown"
@@ -67,22 +66,28 @@ while ($comment = $comments->fetch_assoc()) { ?>
                                        value="<?php echo $comment['id_comentario'] ?>">
                                 <input type="text" hidden name="id-post"
                                        value="<?php echo $comment['id_publicacion'] ?>">
-                                <input type="submit"
-                                       class="dropdown-item"
-                                       style="color: black"
-                                       value="Eliminar" name="delete-comment">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <i class="far fa-trash-alt icon-trash"></i>
+                                    <input type="submit"
+                                           class="dropdown-item"
+                                           style="color: red"
+                                           value="Eliminar" name="delete-comment">
+                                </div>
                             </form>
                         </li>
-
                     </ul>
                 </div>
-			<?php } ?>
+				<?php
+			}
+			?>
         </div>
-        <div class="wrap pb-3 pt-3 d-flex justify-content-between">
-            <p>
-				<?php echo $comment['message'] ?>
-            </p>
-            <p>
+        <div>
+            <div class="wrap pb-3 pt-3 d-flex justify-content-between align-items-end">
+                <p>
+					<?php echo $comment['message'] ?>
+                </p>
+            </div>
+            <p class="date-comment">
 				<?php echo $comment['date']; ?>
             </p>
         </div>

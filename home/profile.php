@@ -38,7 +38,7 @@ if ($conexion->query($query)->num_rows == 1) {
                     <img style="height: 110px" src="<?php echo $user['photo']; ?>" alt="">
                     <h3 class="h3"><?php echo $user['name'] ?></h3>
                 </div>
-                <div class="profile-cover__action bg--img" data-overlay="0.3">
+                <div class="profile-cover__action bg--img">
 					<?php if (!isset($_SESSION['id']) || $_SESSION['id'] != $user['id']) { ?>
                         <button class="btn btn-rounded btn-info">
                             <i class="fa fa-comment"></i>
@@ -91,7 +91,7 @@ if ($conexion->query($query)->num_rows == 1) {
                                                 <form action="delete.php" method="post">
                                                     <input type="text" hidden name="id"
                                                            value="<?php echo $post['id'] ?>">
-                                                    <input style="color: black"
+                                                    <input style="color: red"
                                                            type="submit"
                                                            class="dropdown-item"
                                                            value="Eliminar"

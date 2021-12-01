@@ -37,12 +37,12 @@ $result = $conexion->query($query)->fetch_assoc();
                         a hacer grandes cambios en tu cuenta aquí
                     </p>
                 </div>
-                <div class="cajaTextoUsuario">
+                <div class="text-user-div">
 					<?php echo $result['name']; ?>
                 </div>
                 <img src="<?php echo $result['photo']; ?>" class="rounded-circle" height="300" alt="">
             </h1>
-            <div class="cajaTextoCorreoBiografia">
+            <div class="biography-container">
                 <div class="row d-flex justify-content-center align-items-center">
                     Biografía:
 					<?php echo $result['biography']; ?>
@@ -66,14 +66,14 @@ $result = $conexion->query($query)->fetch_assoc();
             <form method="post" action="" class="change-data-container" style="margin-top: 20px">
                 <p class="change-data">Nombre</p>
                 <div class="d-flex flex-row">
-                    <input type="text" name="name" autocomplete="no" required class="boxText" placeholder="Nombre">
+                    <input type="text" name="name" autocomplete="no" required class="text-box" placeholder="Nombre">
                     <input type="submit" name="different-name" class="button" value="Cambiar">
                 </div>
             </form>
             <form method="post" action="" class="change-data-container">
                 <p class="change-data">Correo Electrónico</p>
                 <div class="d-flex flex-row">
-                    <input type="email" name="email" required class="boxText"
+                    <input type="email" name="email" required class="text-box"
                            placeholder="Correo Electrónico">
                     <input type="submit" name="different-email" class="button" value="Cambiar">
                 </div>
@@ -81,7 +81,7 @@ $result = $conexion->query($query)->fetch_assoc();
             <form method="post" action="" class="change-data-container">
                 <p class="change-data">Contraseña</p>
                 <div class="d-flex flex-row">
-                    <input type="password" name="password" required autocomplete="off" class="boxText"
+                    <input type="password" name="password" required autocomplete="off" class="text-box"
                            placeholder="Contraseña">
                     <input type="submit" name="different-password" class="button" value="Cambiar">
                 </div>
@@ -89,7 +89,7 @@ $result = $conexion->query($query)->fetch_assoc();
             <form method="post" action="" class="change-data-container">
                 <p class="change-data">Cambiar Biografía</p>
                 <div class="d-flex flex-row">
-                    <input type="text" name="biography" required autocomplete="off" class="boxText"
+                    <input type="text" name="biography" required autocomplete="off" class="text-box"
                            placeholder="Biografia">
                     <input type="submit" name="different-biography" class="button" value="Cambiar">
                 </div>

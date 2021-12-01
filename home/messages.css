@@ -31,13 +31,16 @@
     max-width: 400px;
     max-height: 70px;
     overflow-y: hidden;
+    transition: all .5s ease;
 }
 
 .show-date {
     display: none;
     color: #5c636a;
+    transition: all .5s ease;
 }
 
 .container-chat:hover .show-date {
     display: block;
+    transition: all .5s ease;
 }

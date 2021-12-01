@@ -13,7 +13,7 @@ if (isset($_GET['q'])) {
 	$relatedPosts = $conexion->query($query);
 	?>
 
-    <div class="col">
+    <div class="col container-inicio">
         <div class="border p-1">
             <a href="home.php" class="back d-flex align-items-center pt-2 ps-2">
                 <i class="fas fa-arrow-left"></i>
@@ -76,29 +76,30 @@ if (isset($_GET['q'])) {
 
 } else { ?>
     <div class="col">
-        <div class="cajaPublica">
+        <div class="posts-container">
             <div class="border ps-3">
                 <p style="font-size: 30px; font-weight: bold">Inicio</p>
             </div>
             <div class="">
-                <form class="cajaPublica" method="post">
+                <form method="post">
                     <div class="border">
                         <div class="d-flex justify-content-center align-items-center pt-1 pe-1">
                             <img src="<?php echo $_SESSION['photo'] ?>" alt="" width="32" height="32"
                                  class="rounded-circle mb-4 ms-2">
-                            <textarea class="texto cajaPublica form-control"
+                            <textarea class="posting form-control"
                                       rows="3"
                                       name="tweet"
                                       maxlength="250"
-                                      placeholder="¿Qué estas pensando?"></textarea>
+                                      placeholder="¿Qué estas pensando?" style="padding-top: 5%;"></textarea>
                         </div>
+                        <!--                        <div style="border: #cbcbcb 0.15em solid"></div>-->
                         <div class="d-flex justify-content-between pe-3 pt-3">
                             <div class="d-flex align-items-center ms-3">
                                 <div>
-                                    <i class="fas fa-photo-video"></i>
+                                    <i class="fas fa-photo-video icon-index"></i>
                                 </div>
                                 <div class="ms-3">
-                                    <i class="fas fa-icons"></i>
+                                    <i class="fas fa-icons icon-index"></i>
                                 </div>
                             </div>
                             <input class="button mb-3"
@@ -140,7 +141,7 @@ if (isset($_GET['q'])) {
                                     </div>
                                 </div>
 								<?php if ($_SESSION['id'] == $post['id_user'] || $_SESSION['role'] == '1') { ?>
-                                    <div class="dropdown">
+                                    <div class="dropdown circle-settings">
                                         <a class="d-flex align-items-center text-black-50 text-decoration-none dropdown-toggle posts-settings p-2 fas fa-cog"
                                            id="optionsPosts"
                                            data-bs-toggle="dropdown"
@@ -151,7 +152,7 @@ if (isset($_GET['q'])) {
                                                 <li>
                                                     <a href="post.php?id=<?php echo $post['id_publicacion'] ?>&edit"
                                                        class="dropdown-item" style="color: black">
-                                                        Editar
+                                                        <i class="far fa-edit"></i> Editar
                                                     </a>
                                                 </li>
 											<?php } ?>
@@ -159,8 +160,11 @@ if (isset($_GET['q'])) {
                                                 <form action="delete.php" method="post">
                                                     <input type="text" hidden name="id"
                                                            value="<?php echo $post['id_publicacion'] ?>">
-                                                    <input type="submit" class="dropdown-item" style="color: black"
-                                                           value="Eliminar" name="delete">
+                                                    <div class="d-flex align-items-center justify-content-center">
+                                                        <i class="far fa-trash-alt icon-trash"></i>
+                                                        <input type="submit" class="dropdown-item" style="color: red"
+                                                               value="Eliminar" name="delete">
+                                                    </div>
                                                 </form>
                                             </li>
                                         </ul>
@@ -190,8 +194,7 @@ if (isset($_GET['q'])) {
 WHERE id_publicacion ='{$post['id_publicacion']}' AND id_user = '{$_SESSION['id']}'";
 												$result = $conexion->query($query);
 												?>
-                                                <button type="submit" class="border-0 like-button"
-                                                        style="background: #fff"
+                                                <button type="submit" class="border-0 like-button circle-heart"
                                                         name="like"
                                                         value="<?php echo $post['id_publicacion'] ?>">
 													<?php
@@ -208,8 +211,8 @@ WHERE id_publicacion ='{$post['id_publicacion']}' AND id_user = '{$_SESSION['id'
                                         <div class="comments ps-2">
                                             <div>
                                                 <a href="post.php?id=<?php echo $post['id_publicacion'] ?>"
-                                                   class="far fa-comment comments"
-                                                   style="text-decoration: none; color: #000">
+                                                   class="far fa-comment comments circle-comment"
+                                                   style="text-decoration: none; color: #000;">
 													<?php echo $post['comments']; ?>
                                                 </a>
                                             </div>

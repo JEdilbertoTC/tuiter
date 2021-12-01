@@ -32,8 +32,7 @@ if (isset($_SESSION['id'])) {
             <div class="modal-body">
                 <form action="" method="post">
                     <div class="mb-3">
-                        <input autocomplete="off"
-                               class="form-control"
+                        <input class="form-control"
                                placeholder="Correo electrónico"
                                name="email"
                                type="text"

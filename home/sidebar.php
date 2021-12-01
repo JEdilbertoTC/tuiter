@@ -3,26 +3,26 @@
 }
 ?>
 
-<div class="col-xl-6 col order-first order-xl-last order-md-last">
+<div class="col-xl-6 col order-first order-xl-last col-md-12">
     <form action="" method="get" class="pb-2">
         <input type="text"
                name="q"
                id="search"
-               class="rounded-pill ps-4 barraNavegacion"
+               class="rounded-pill ps-4 navigation-bar"
                autocomplete="off"
                placeholder="Buscar">
     </form>
 
     <div class="suggestions">
-        <div class="border p-3">
-            <p class="pb-3 bold">Quizá te interesé</p>
+        <div class="border p-3" >
+            <p class="pb-3 bold interest">Quizá te interesé</p>
 			<?php
 			$query = "SELECT u.name, p.id, p.info, p.date, u.photo, u.email, u.id AS id_user 
 FROM publicaciones p INNER JOIN usuarios u ON u.id = p.id_user ORDER BY RAND() LIMIT 3";
 			$result = $conexion->query($query);
 			while ($randomPost = $result->fetch_assoc()) {
 				if ($randomPost['id_user'] != $_SESSION['id']) {?>
-                    <div class="d-flex flex-column suggestion text-decoration-none pt-3 pb-2">
+                    <div class="d-flex flex-column suggestion text-decoration-none pt-3 pb-2" >
                         <div class="d-flex">
                             <img src="<?php echo $randomPost['photo'] ?>" alt="" width="32" height="32"
                                  class="rounded-circle pe-1">
@@ -45,32 +45,32 @@ FROM publicaciones p INNER JOIN usuarios u ON u.id = p.id_user ORDER BY RAND() L
 					<?php
 				}
 			}
-            ?>
+			?>
         </div>
-        <div class="border p-3">
-            <p class="bold">Quizá conozcas</p>
+        <div class="border p-3" >
+            <p class="bold interest">Quizá conozcas</p>
 			<?php
 			$query = "SELECT * FROM usuarios ORDER BY RAND() LIMIT 3;";
 			$result = $conexion->query($query);
 			while ($randomPost = $result->fetch_assoc()) {
 				if ($randomPost['id'] != $_SESSION['id']) { ?>
-                    <div class="pe-2 d-flex mt- w-100 suggestion mt-2">
+                    <div class="pe-2 d-flex mt- w-100 suggestion mt-2" style="border-radius: 50px; transition: all .5s ease">
                         <div class="pe-3">
                             <img src="<?php echo $randomPost['photo'] ?>" alt="" height="32" width="32"
                                  class="rounded-circle">
                         </div>
                         <div class="d-flex flex-column w-100">
                             <a class="mb-2" href="profile.php?id=<?php echo $randomPost['id'] ?>">
-                                <p class="profile"><?php echo $randomPost['name']; ?></p>
+                                <p class="profile" style="padding-right: 2px; padding-left: 2px"><?php echo $randomPost['name']; ?></p>
                                 <p class="email"
                                    style="margin: 0;"><?php echo $randomPost['email']; ?></p>
                             </a>
                         </div>
                     </div>
-				<?php
-                }
+					<?php
+				}
 			}
-            ?>
+			?>
         </div>
     </div>
 </div>
