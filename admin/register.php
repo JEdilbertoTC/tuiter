@@ -17,26 +17,25 @@ if (!isset($_SESSION['id']) && $_SESSION['role'] != '1') {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
           crossorigin="anonymous">
-    <link href="../index.css" rel="stylesheet">
+    <link href="../session/login.css" rel="stylesheet">
     <link rel="icon" href="../public/twitter_bird.ico" type="image/x-icon">
     <title>Registro como Administrador</title>
 </head>
 <body>
 <div class="container-fluid">
-    <div>
-        <a href="admin.php"><i class="fas fa-arrow-left"></i> Volver</a>
-    </div>
     <div class="modal-dialog">
-        <div class="modal-content" id="modal-login">
+        <div class="modal-content container-login" id="modal-login">
+            <a href="admin.php" style="padding: 3%"><i class="fas fa-times icon-back"></i></a>
+            <i class="fab fa-twitter icon"></i>
             <div class="modal-header">
                 <h4 class="modal-title title ms-5 pt-5">
-                    <span class="black">Registrar</span>
+                    <span class="black">Registra nuevos usuarios</span>
                 </h4>
             </div>
             <div class="modal-body">
                 <form method="post" action="">
                     <div class="mb-3">
-                        <input autocomplete="no"
+                        <input autocomplete="off"
                                class="form-control"
                                name="name"
                                placeholder="Nombre"
@@ -60,7 +59,7 @@ if (!isset($_SESSION['id']) && $_SESSION['role'] != '1') {
 
                     <div class="modal-footer">
                         <div class="pb-5">
-                            <button class="float-end start pt-2 pb-2 ps-4 pe-4 text-decoration-none"
+                            <button class="float-end start pt-2 pb-2 ps-4 pe-4 text-decoration-none button"
                                     name="register"
                                     type="submit">Registrar
                             </button>
@@ -96,7 +95,7 @@ if (!isset($_SESSION['id']) && $_SESSION['role'] != '1') {
 						<?php
 					}
 				}
-                ?>
+				?>
             </div>
         </div>
     </div>

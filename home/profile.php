@@ -61,20 +61,20 @@ if ($conexion->query($query)->num_rows == 1) {
                 </div>
             </div>
             <div class="panel">
-                <div class="panel-heading">
-                    <h3 class="panel-title mt-5">Publicaciones</h3>
+                <div class="panel-heading" style="border-bottom: rgb(0, 172, 238) 1px solid;">
+                    <h3 class="panel-title mt-5" >Publicaciones</h3>
                 </div>
                 <ul class="panel-activity__list">
 					<?php while ($post = $posts->fetch_assoc()) { ?>
                         <li>
                             <div class="activity__list__header d-flex justify-content-between">
                                 <div>
-                                    <img src="<?php echo $user['photo'] ?>" alt="" style="height: 36px"/>
+                                    <img src="<?php echo $user['photo'] ?>" alt="" style="height: 36px; margin-left: 1%;"/>
                                     <a href="profile.php?id=<?php echo $userId ?>"
-                                       class="text-uppercase user"><?php echo $user['name'] ?></a>
+                                       class="text-uppercase user ps-2"><?php echo $user['name'] ?></a>
                                 </div>
 								<?php if ($post['id_user'] == $_SESSION['id']) { ?>
-                                    <div class="dropdown">
+                                    <div class="dropdown circle-settings">
                                         <a class="d-flex align-items-center text-black-50 text-decoration-none dropdown-toggle posts-settings p-2 fas fa-cog"
                                            id="optionsPosts"
                                            data-bs-toggle="dropdown"
@@ -84,18 +84,21 @@ if ($conexion->query($query)->num_rows == 1) {
                                             <li>
                                                 <a href="../home/post.php?id=<?php echo $post['id'] ?>&edit"
                                                    class="dropdown-item" style="font-weight: normal; color: black">
-                                                    Editar
+                                                    <i class="far fa-edit"></i>Editar
                                                 </a>
                                             </li>
                                             <li>
                                                 <form action="delete.php" method="post">
                                                     <input type="text" hidden name="id"
                                                            value="<?php echo $post['id'] ?>">
-                                                    <input style="color: red"
-                                                           type="submit"
-                                                           class="dropdown-item"
-                                                           value="Eliminar"
-                                                           name="delete">
+                                                    <div class="d-flex align-items-center justify-content-center">
+                                                        <i class="far fa-trash-alt icon-trash"></i>
+                                                        <input style="color: red"
+                                                               type="submit"
+                                                               class="dropdown-item"
+                                                               value="Eliminar"
+                                                               name="delete">
+                                                    </div>
                                                 </form>
                                             </li>
                                         </ul>
@@ -122,7 +125,7 @@ if ($conexion->query($query)->num_rows == 1) {
 									$actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 									echo $actual_link; ?>" hidden>
                                     <a type="submit"></a>
-                                    <button type="submit" name="like" value="<?php echo $post['id'] ?>" class="like">
+                                    <button type="submit" name="like" value="<?php echo $post['id'] ?>" class="like circle-heart">
 										<?php if ($result->num_rows) { ?>
                                             <i class="fas fa-heart icon-like"></i>
 										<?php } else { ?>
@@ -131,7 +134,7 @@ if ($conexion->query($query)->num_rows == 1) {
 										<?php echo $count['likes']; ?>
                                     </button>
                                 </form>
-                                <a href="post.php?id=<?php echo $post['id'] ?>" class="comment">
+                                <a href="post.php?id=<?php echo $post['id'] ?>" class="comment circle-comment">
                                     <i class="fas fa-comment"></i>
 									<?php echo $count['comments']; ?>
                                 </a>

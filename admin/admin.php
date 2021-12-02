@@ -27,10 +27,10 @@ if ($_SESSION['role'] != 1 || !isset($_SESSION['id'])) {
 		<?php include "../home/navigation.php"; ?>
         <div class="col">
             <h1 class="ps-2">Administrador</h1>
-            <a href="register.php" class="add">Agregar nuevos usuarios</a>
+            <a href="register.php" class="add"> <i class="fas fa-user-plus me-2" ></i>Agregar nuevos usuarios</a>
             <div class="table table-responsive">
-                <table class="table table-responsive">
-                    <thead>
+                <table class="table table-responsive mt-5 pt-5">
+                    <thead style="color: rgb(29, 155, 240);" >
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Nombre</th>
@@ -56,7 +56,7 @@ if ($_SESSION['role'] != 1 || !isset($_SESSION['id'])) {
                                 <td><?php echo $user['id'] ?></td>
                                 <td><?php echo $user['role'] == 1 ? 'Administrador' : 'Usuario' ?></td>
                                 <td>
-                                    <div class="dropdown d-flex justify-content-center align-items-center ">
+                                    <div class="dropdown d-flex justify-content-center align-items-center">
                                         <a class="d-flex align-items-center text-black-50 text-decoration-none dropdown-toggle"
                                            id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                                             <i class="fas fa-user-edit"></i>

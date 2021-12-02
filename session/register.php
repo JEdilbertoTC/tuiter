@@ -15,18 +15,20 @@ if (isset($_SESSION['id'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
           crossorigin="anonymous">
-    <link href="../index.css" rel="stylesheet">
+    <link rel="icon" href="../public/twitter_bird.ico" type="image/x-icon">
+    <link href="login.css" rel="stylesheet">
     <title>Tuiter</title>
 </head>
 <body>
 <div class="container">
-    <a href="../index.php"><i class="fas fa-arrow-left"></i> Volver</a>
     <div class="modal-dialog">
 
-        <div class="modal-content" id="modal-login">
+        <div class="modal-content container-login" id="modal-login">
+            <a href="../index.php" style="padding: 3%"><i class="fas fa-times icon-back"></i></a>
+            <i class="fab fa-twitter icon"></i>
             <div class="modal-header">
                 <h4 class="modal-title title ms-5 pt-5">
-                    <span class="black">Registrarse</span>
+                    <span class="iniciaTxt">Registrarse</span>
                 </h4>
             </div>
             <div class="modal-body">
@@ -63,59 +65,58 @@ if (isset($_SESSION['id'])) {
                     </div>
                     <div class="modal-footer">
                         <div class="pb-5">
-                            <button class="float-end start pt-2 pb-2 ps-4 pe-4 text-decoration-none"
+                            <button class="float-end start pt-2 pb-2 ps-4 pe-4 text-decoration-none button"
                                     name="register"
                                     type="submit">Registrarse
                             </button>
                         </div>
                     </div>
+	                <?php if (isset($_POST['register'])) {
+		                $name = $_POST['name'];
+		                $email = $_POST['email'];
+		                $password = $_POST['password'];
+		                $password2 = $_POST['password2'];
+		                $checkEmail = $conexion->query("SELECT * FROM usuarios WHERE email = '$email'");
+
+		                if ($checkEmail->num_rows >= 1) { ?>
+                            <div class="alert alert-danger alert-dismissible">
+                                El email ya está en uso por favor escoja otro o verifique si tiene una cuenta
+                            </div>
+			                <?php
+			                die();
+		                }
+		                if ($password != $password2) { ?>
+                            <div class="alert alert-danger alert-dismissible">
+                                Las contraseñas no coinciden
+                            </div>
+			                <?php
+			                die();
+		                }
+
+		                if ($checkEmail->num_rows == 0) {
+			                $id = uniqid();
+			                $image = 'https://i.stack.imgur.com/l60Hf.png';
+			                $query = "INSERT INTO usuarios VALUES ('$id','$name', now(), '$email', '$password', '0', '$image', NULL)";
+			                $result = $conexion->query($query);
+			                if ($result) {
+				                $_SESSION['id'] = $id;
+				                $_SESSION['name'] = $name;
+				                $_SESSION['photo'] = $image;
+				                $_SESSION['role'] = 0;
+				                header('Location: ../home/home.php');
+			                }
+		                } else { ?>
+                            <div class="alert alert-danger alert-dismissible">
+                                Faltan campos
+                            </div>
+			                <?php
+			                die();
+		                }
+	                } ?>
                 </form>
             </div>
         </div>
-
     </div>
-	<?php if (isset($_POST['register'])) {
-		$name = $_POST['name'];
-		$email = $_POST['email'];
-		$password = $_POST['password'];
-		$password2 = $_POST['password2'];
-		$checkEmail = $conexion->query("SELECT * FROM usuarios WHERE email = '$email'");
-
-		if ($checkEmail->num_rows >= 1) { ?>
-            <div class="alert alert-danger alert-dismissible">
-                El email ya está en uso por favor escoja otro o verifique si tiene una cuenta
-            </div>
-			<?php
-			die();
-		}
-		if ($password != $password2) { ?>
-            <div class="alert alert-danger alert-dismissible">
-                Las contraseñas no coinciden
-            </div>
-			<?php
-			die();
-		}
-
-		if ($checkEmail->num_rows == 0) {
-			$id = uniqid();
-			$image = 'https://i.stack.imgur.com/l60Hf.png';
-			$query = "INSERT INTO usuarios VALUES ('$id','$name', now(), '$email', '$password', '0', '$image', NULL)";
-			$result = $conexion->query($query);
-			if ($result) {
-				$_SESSION['id'] = $id;
-				$_SESSION['name'] = $name;
-				$_SESSION['photo'] = $image;
-				$_SESSION['role'] = 0;
-				header('Location: ../home/home.php');
-			}
-		} else { ?>
-            <div class="alert alert-danger alert-dismissible">
-                Faltan campos
-            </div>
-			<?php
-			die();
-		}
-	} ?>
 </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"

@@ -3,7 +3,7 @@ session_start();
 include '../config/database.php';
 if (!isset($_SESSION['id'])) {
 	header('Location: login.php');
-    die();
+	die();
 }
 $id = $_SESSION['id'];
 $query = "SELECT * FROM usuarios WHERE id = '$id'";
@@ -33,8 +33,8 @@ $result = $conexion->query($query)->fetch_assoc();
                 <div class="d-flex justify-content-center align-items-center flex-column">
                     <p class="text-info">Información básica</p>
                     <p class="description pb-3">
-                        Configura tus preferencias de inicio de sesión, ayudanos a personalizar tu experiencia y
-                        a hacer grandes cambios en tu cuenta aquí
+                        Configura tus preferencias de inicio de sesión, ayudanos a personalizar tu experiencia y a hacer
+                        grandes cambios en tu cuenta aquí
                     </p>
                 </div>
                 <div class="text-user-div">

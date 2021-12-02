@@ -397,3 +397,39 @@ button.btn-link {
 .comment:hover {
     color: rgb(43, 124, 178);
 }
+
+.circle-settings {
+    background-color: transparent;
+    border-radius: 50px;
+    /*opacity: 0;*/
+    transition: all .5s ease-out;
+}
+
+.fa-cog {
+    transition: all .5s ease-out;
+}
+
+.circle-settings:hover {
+    background-color: rgba(0, 172, 238, .1);
+}
+
+.circle-settings:hover .fa-cog {
+    color: rgb(0, 172, 238) !important;
+}
+
+.icon-trash {
+    margin-left: 10%;
+    margin-right: -5%;
+    color: red;
+    z-index: 2;
+}
+
+.circle-heart:hover {
+    background: rgba(255, 0, 0, .1);
+    border-radius: 50px;
+}
+
+.circle-comment:hover {
+    background: rgba(0, 172, 238, .3);
+    border-radius: 50px;
+}

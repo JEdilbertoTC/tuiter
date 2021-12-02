@@ -103,7 +103,7 @@ if (isset($_GET['id'])) {
 
                     <div class="d-flex flex-row pt-3 justify-content-between pe-3 ps-3 align-items-center">
                         <div class="icon-comment">
-                            <a href=""><i class="far fa-comment icon-comment"></i></a>
+                            <a href="post.php?id=<?php echo $_GET['id']?>"><i class="far fa-comment icon-comment"></i></a>
                         </div>
                         <div class="icon-retuit">
                             <a href=""><i class="fas fa-retweet icon-retuit"></i></a>

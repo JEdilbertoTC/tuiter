@@ -29,15 +29,16 @@
     font-size: 1em;
     font-family: 'Inter', sans-serif;
     font-weight: bold;
+    margin-top: 5%;
 }
 
 .description {
     color: black;
-    text-align: left;
+    text-align: center;
     font-size: .5em;
     font-family: 'Inter', sans-serif;
-    padding-left: 40%;
-    padding-right: 40%;
+    width: 50%;
+    margin-bottom: 3%;
 }
 
 .text-user-div {

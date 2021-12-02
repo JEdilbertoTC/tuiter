@@ -14,10 +14,23 @@
     flex-direction: column;
 }
 
+.add{
+    transition: all .5s ease-out;
+}
+
 .add:hover {
-    color: #0d6efd;
+    color: rgb(29, 155, 240);
 }
 
 .dropdown:hover {
     color: #0d6efd;
+}
+
+.fa-user-edit{
+    cursor: pointer;
+    transition: all .5s ease-out;
+}
+
+.fa-user-edit:hover{
+    color: rgb(29, 155, 240);
 }

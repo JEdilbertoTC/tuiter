@@ -42,14 +42,14 @@ function extracted(mysqli_result $users, mysqli $conexion)
 										$lastMessage = $conexion->query($query)->fetch_assoc()['mensaje'];
 									}
 									echo $lastMessage;
-                                    ?>
+									?>
                                 </p>
-                                <p class="ps-2 show-date pt-5">
+                                <span class="ps-2 show-date pt-5">
 									<?php if ($conexion->query($query)->num_rows > 0) {
 										echo $conexion->query($query)->fetch_assoc()['date'];
 									}
-                                    ?>
-                                </p>
+									?>
+                                </span>
                             </div>
                         </div>
                     </div>

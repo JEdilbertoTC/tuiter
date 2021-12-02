@@ -1,0 +1,44 @@
+body {
+    background-color: rgb(153, 153, 153);
+}
+
+.container-login{
+    border-radius: 5%;
+    border: none;
+}
+
+.icon-back {
+    color: black;
+    padding: 2%;
+    border-radius: 100%;
+    transition: all .2s ease-out;
+}
+
+.icon-back:hover {
+    background-color: rgba(153, 153, 153, 0.3);
+}
+
+.icon {
+    text-align: center;
+    color: rgb(0, 172, 238);
+    font-size: 2em;
+}
+
+.iniciaTxt {
+    color: black;
+}
+
+.button {
+    background-color: rgba(29, 155, 240, 0.5);
+    border: none;
+    border-radius: 50px;
+    padding: 7px;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-weight: bold;
+    transition: all .2s ease;
+}
+
+.button:hover {
+    background-color: rgb(29, 155, 240);
+}
