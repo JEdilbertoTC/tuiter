@@ -2,7 +2,7 @@
 session_start();
 include '../config/database.php';
 if (!isset($_SESSION['id']) && $_SESSION['role'] != '1') {
-	header('Location: login.php');
+	header('Location: ../session/login.php');
 	die();
 }
 ?>
