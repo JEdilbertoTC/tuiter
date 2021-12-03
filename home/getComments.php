@@ -3,7 +3,8 @@ session_start();
 include "../config/database.php";
 
 if (!isset($_GET['id']) || !isset($_SESSION['id'])) {
-	header('location: ../index.php');
+	header('location: ../session/login.php');
+    die();
 }
 
 $query = "SELECT  u.name, c.message, u.photo, u.email, u.id, c.message, c.id_user, c.id_publicacion, c.id AS id_comentario, c.date
@@ -17,7 +18,7 @@ if (isset($_GET['id'])) {
 	$result = $conexion->query($query);
 
 	if (!$result->num_rows) {
-		header('location: ../index.php');
+		header('location: ../session/login.php');
 		die();
 	}
 
@@ -50,34 +51,36 @@ while ($comment = $comments->fetch_assoc()) { ?>
                     </a>
                 </div>
             </div>
-			<?php if ($result['id'] == $_SESSION['id'] || $_SESSION['id'] == $comment['id_user']) { ?>
-                <div class="dropdown wrap circle-settings">
-                    <a class="d-flex align-items-center text-black-50 text-decoration-none dropdown-toggle posts-settings p-2 fas fa-cog"
-                       id="optionsPosts"
-                       data-bs-toggle="dropdown"
-                       aria-expanded="false">
-                    </a>
+			<?php if(isset($_SESSION['id'])) {
+				if ($result['id'] == $_SESSION['id'] || $_SESSION['id'] == $comment['id_user']) { ?>
+                    <div class="dropdown wrap circle-settings">
+                        <a class="d-flex align-items-center text-black-50 text-decoration-none dropdown-toggle posts-settings p-2 fas fa-cog"
+                           id="optionsPosts"
+                           data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                        </a>
 
-                    <ul class="dropdown-menu"
-                        aria-labelledby="optionsPosts">
-                        <li>
-                            <form action="delete-comment.php" method="post">
-                                <input type="text" hidden name="id-comment"
-                                       value="<?php echo $comment['id_comentario'] ?>">
-                                <input type="text" hidden name="id-post"
-                                       value="<?php echo $comment['id_publicacion'] ?>">
-                                <div class="d-flex align-items-center justify-content-center">
-                                    <i class="far fa-trash-alt icon-trash"></i>
-                                    <input type="submit"
-                                           class="dropdown-item"
-                                           style="color: red"
-                                           value="Eliminar" name="delete-comment">
-                                </div>
-                            </form>
-                        </li>
-                    </ul>
-                </div>
-				<?php
+                        <ul class="dropdown-menu"
+                            aria-labelledby="optionsPosts">
+                            <li>
+                                <form action="delete-comment.php" method="post">
+                                    <input type="text" hidden name="id-comment"
+                                           value="<?php echo $comment['id_comentario'] ?>">
+                                    <input type="text" hidden name="id-post"
+                                           value="<?php echo $comment['id_publicacion'] ?>">
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <i class="far fa-trash-alt icon-trash"></i>
+                                        <input type="submit"
+                                               class="dropdown-item"
+                                               style="color: red"
+                                               value="Eliminar" name="delete-comment">
+                                    </div>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+					<?php
+				}
 			}
 			?>
         </div>

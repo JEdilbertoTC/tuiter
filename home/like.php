@@ -2,6 +2,11 @@
 session_start();
 include '../config/database.php';
 
+if(!isset($_SESSION['id'])) {
+	header("location: ../session/login.php");
+	die();
+}
+
 if (isset($_POST['like']) && isset($_SESSION['id'])) {
 	$idUser = $_SESSION['id'];
 	$idPost = $_POST['like'];

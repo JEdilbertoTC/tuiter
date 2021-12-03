@@ -1,7 +1,7 @@
 <?php
 session_start();
 include '../config/database.php';
-if ($_SESSION['role'] != 1 || !isset($_SESSION['id'])) {
+if ($_SESSION['role'] == 0 || !isset($_SESSION['id'])) {
 	header('Location: ../session/login.php');
 	die();
 }
@@ -27,16 +27,15 @@ if ($_SESSION['role'] != 1 || !isset($_SESSION['id'])) {
 		<?php include "../home/navigation.php"; ?>
         <div class="col">
             <h1 class="ps-2">Administrador</h1>
-            <a href="register.php" class="add"> <i class="fas fa-user-plus me-2" ></i>Agregar nuevos usuarios</a>
+            <a href="register.php" class="add"> <i class="fas fa-user-plus me-2"></i>Agregar nuevos usuarios</a>
             <div class="table table-responsive">
                 <table class="table table-responsive mt-5 pt-5">
-                    <thead style="color: rgb(29, 155, 240);" >
+                    <thead style="color: rgb(29, 155, 240);">
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Nombre</th>
                         <th scope="col">Correo Electrónico</th>
                         <th scope="col">Fecha de Registro</th>
-                        <th scope="col">ID</th>
                         <th scope="col">Rol</th>
                         <th scope="col">Configuración</th>
                     </tr>
@@ -53,8 +52,15 @@ if ($_SESSION['role'] != 1 || !isset($_SESSION['id'])) {
                                 <td><?php echo $user['name'] ?></td>
                                 <td><?php echo $user['email'] ?></td>
                                 <td><?php echo $user['date'] ?></td>
-                                <td><?php echo $user['id'] ?></td>
-                                <td><?php echo $user['role'] == 1 ? 'Administrador' : 'Usuario' ?></td>
+                                <td><?php
+									if ($user['role'] == 1)
+										echo 'Administrador';
+									else if ($user['role'] == 0)
+										echo 'Usuario';
+									else
+										echo 'Root';
+									?>
+                                </td>
                                 <td>
                                     <div class="dropdown d-flex justify-content-center align-items-center">
                                         <a class="d-flex align-items-center text-black-50 text-decoration-none dropdown-toggle"
@@ -62,12 +68,14 @@ if ($_SESSION['role'] != 1 || !isset($_SESSION['id'])) {
                                             <i class="fas fa-user-edit"></i>
                                         </a>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownUser1">
-											<?php if ($_SESSION['id'] != $user['id'] && $user['role'] != '1') { ?>
+											<?php if ($_SESSION['id'] != $user['id'] && $user['role'] == '0' && $_SESSION['role'] >= '1') { ?>
                                                 <div class="dropdown-item">
                                                     <li>
                                                         <form action="do-admin.php" method="post">
                                                             <input type="text" hidden name="id"
                                                                    value="<?php echo $user['id'] ?>">
+                                                            <input type="text" hidden name="role"
+                                                                   value="1">
                                                             <button type="submit"
                                                                     class="dropdown-item"
                                                                     name="delete">
@@ -76,6 +84,29 @@ if ($_SESSION['role'] != 1 || !isset($_SESSION['id'])) {
                                                         </form>
                                                     </li>
                                                 </div>
+												<?php
+											}
+											?>
+	                                        <?php if ($_SESSION['id'] != $user['id'] && $user['role'] == '1' && $_SESSION['role'] == '2') { ?>
+                                                <div class="dropdown-item">
+                                                    <li>
+                                                        <form action="do-admin.php" method="post">
+                                                            <input type="text" hidden name="id"
+                                                                   value="<?php echo $user['id'] ?>">
+                                                            <input type="text" hidden name="role"
+                                                                   value="0">
+                                                            <button type="submit"
+                                                                    class="dropdown-item"
+                                                                    name="update">
+                                                                Descender a usuario
+                                                            </button>
+                                                        </form>
+                                                    </li>
+                                                </div>
+		                                        <?php
+	                                        }
+	                                        ?>
+											<?php if ($_SESSION['id'] != $user['id'] && $user['role'] < $_SESSION['role']) { ?>
                                                 <div class="dropdown-item">
                                                     <li>
                                                         <form action="delete.php" method="post">

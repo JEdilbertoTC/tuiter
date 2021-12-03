@@ -31,7 +31,12 @@ if ($conexion->query($query)->num_rows == 1) {
 <body>
 <div class="container">
     <div class="row">
-		<?php include "../home/navigation.php"; ?>
+
+		<?php
+		if (isset($_SESSION['id'])) {
+			include "../home/navigation.php";
+		}
+		?>
         <div class="col">
             <div class="panel profile-cover">
                 <div class="profile-cover__img">
@@ -62,50 +67,56 @@ if ($conexion->query($query)->num_rows == 1) {
             </div>
             <div class="panel">
                 <div class="panel-heading" style="border-bottom: rgb(0, 172, 238) 1px solid;">
-                    <h3 class="panel-title mt-5" >Publicaciones</h3>
+                    <h3 class="panel-title mt-5">Publicaciones</h3>
                 </div>
                 <ul class="panel-activity__list">
 					<?php while ($post = $posts->fetch_assoc()) { ?>
                         <li>
                             <div class="activity__list__header d-flex justify-content-between">
                                 <div>
-                                    <img src="<?php echo $user['photo'] ?>" alt="" style="height: 36px; margin-left: 1%;"/>
+                                    <img src="<?php echo $user['photo'] ?>" alt=""
+                                         style="height: 36px; margin-left: 1%;"/>
                                     <a href="profile.php?id=<?php echo $userId ?>"
                                        class="text-uppercase user ps-2"><?php echo $user['name'] ?></a>
                                 </div>
-								<?php if ($post['id_user'] == $_SESSION['id']) { ?>
-                                    <div class="dropdown circle-settings">
-                                        <a class="d-flex align-items-center text-black-50 text-decoration-none dropdown-toggle posts-settings p-2 fas fa-cog"
-                                           id="optionsPosts"
-                                           data-bs-toggle="dropdown"
-                                           aria-expanded="false">
-                                        </a>
-                                        <ul class="dropdown-menu" aria-labelledby="optionsPosts">
-                                            <li>
-                                                <a href="../home/post.php?id=<?php echo $post['id'] ?>&edit"
-                                                   class="dropdown-item" style="font-weight: normal; color: black">
-                                                    <i class="far fa-edit"></i>Editar
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <form action="delete.php" method="post">
-                                                    <input type="text" hidden name="id"
-                                                           value="<?php echo $post['id'] ?>">
-                                                    <div class="d-flex align-items-center justify-content-center">
-                                                        <i class="far fa-trash-alt icon-trash"></i>
-                                                        <input style="color: red"
-                                                               type="submit"
-                                                               class="dropdown-item"
-                                                               value="Eliminar"
-                                                               name="delete">
-                                                    </div>
-                                                </form>
-                                            </li>
-                                        </ul>
-                                    </div>
-									<?php
+								<?php
+								if (isset($_SESSION['id'])) {
+									if ($post['id_user'] == $_SESSION['id']) { ?>
+                                        <div class="dropdown circle-settings">
+                                            <a class="d-flex align-items-center text-black-50 text-decoration-none dropdown-toggle posts-settings p-2 fas fa-cog"
+                                               id="optionsPosts"
+                                               data-bs-toggle="dropdown"
+                                               aria-expanded="false">
+                                            </a>
+                                            <ul class="dropdown-menu" aria-labelledby="optionsPosts">
+                                                <li>
+                                                    <a href="../home/post.php?id=<?php echo $post['id'] ?>&edit"
+                                                       class="dropdown-item" style="font-weight: normal; color: black">
+                                                        <i class="far fa-edit"></i>Editar
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <form action="delete.php" method="post">
+                                                        <input type="text" hidden name="id"
+                                                               value="<?php echo $post['id'] ?>">
+                                                        <div class="d-flex align-items-center justify-content-center">
+                                                            <i class="far fa-trash-alt icon-trash"></i>
+                                                            <input style="color: red"
+                                                                   type="submit"
+                                                                   class="dropdown-item"
+                                                                   value="Eliminar"
+                                                                   name="delete">
+                                                        </div>
+                                                    </form>
+                                                </li>
+                                            </ul>
+                                        </div>
+										<?php
+									}
 								}
 								?>
+
+
                             </div>
                             <div class="activity__list__body entry-content ms-3">
                                 <p>
@@ -114,8 +125,11 @@ if ($conexion->query($query)->num_rows == 1) {
                             </div>
                             <div class="activity__list__footer">
 								<?php
-								$query = "SELECT * FROM likes WHERE id_publicacion ='{$post['id']}'
+								$query = "SELECT * FROM likes WHERE id_publicacion ='{$post['id']}'";
+								if (isset($_SESSION['id'])) {
+									$query = "SELECT * FROM likes WHERE id_publicacion ='{$post['id']}'
                                 AND id_user = '{$_SESSION['id']}'";
+								}
 								$result = $conexion->query($query);
 								$query = "SELECT * FROM publicaciones WHERE id = '{$post['id']}'";
 								$count = $conexion->query($query)->fetch_assoc();
@@ -125,7 +139,8 @@ if ($conexion->query($query)->num_rows == 1) {
 									$actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 									echo $actual_link; ?>" hidden>
                                     <a type="submit"></a>
-                                    <button type="submit" name="like" value="<?php echo $post['id'] ?>" class="like circle-heart">
+                                    <button type="submit" name="like" value="<?php echo $post['id'] ?>"
+                                            class="like circle-heart">
 										<?php if ($result->num_rows) { ?>
                                             <i class="fas fa-heart icon-like"></i>
 										<?php } else { ?>

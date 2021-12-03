@@ -71,6 +71,7 @@ if (isset($_SESSION['id'])) {
 				                $_SESSION['name'] = $result['name'];
 				                $_SESSION['photo'] = $result['photo'];
 				                $_SESSION['role'] = $result['role'];
+				                $_SESSION['email'] = $result['email'];
 				                header('Location: ../home/home.php');
 			                }
 		                } else { ?>

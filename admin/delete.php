@@ -1,7 +1,7 @@
 <?php
 session_start();
 include '../config/database.php';
-if (!isset($_SESSION['id']) && $_SESSION['role'] != '1') {
+if (!isset($_SESSION['id']) && $_SESSION['role'] != '1' || $_SESSION['role'] != '2') {
 	header('location: ../session/login.php');
 	die();
 }

@@ -1,7 +1,4 @@
 <?php
-if (!isset($_SESSION['id'])) {
-	header('Location: ../session/login.php');
-}
 
 if (isset($_GET['q'])) {
 	$q = $_GET['q'];
@@ -58,7 +55,7 @@ if (isset($_GET['q'])) {
                         </div>
 
                         <a href="post.php?id=<?php echo $post['id_publicacion'] ?>">
-                            <div class="pb-4 pe-3 ps-3">
+                            <div class="pb-4 pe-3 ps-5">
                                 <p><?php echo $post['info']; ?></p>
                                 <p class="date-random" style="text-align: right"><?php echo $post['date'] ?></p>
                             </div>
@@ -80,51 +77,54 @@ if (isset($_GET['q'])) {
             <div class="border ps-3">
                 <p style="font-size: 30px; font-weight: bold">Inicio</p>
             </div>
-            <div class="">
-                <form method="post">
-                    <div class="border">
-                        <div class="d-flex justify-content-center align-items-center pt-1 pe-1">
-                            <img src="<?php echo $_SESSION['photo'] ?>" alt="" width="32" height="32"
-                                 class="rounded-circle mb-4 ms-2">
-                            <textarea class="posting form-control"
-                                      rows="3"
-                                      name="tweet"
-                                      maxlength="250"
-                                      placeholder="¿Qué estas pensando?" style="padding-top: 5%;"></textarea>
-                        </div>
-                        <!--                        <div style="border: #cbcbcb 0.15em solid"></div>-->
-                        <div class="d-flex justify-content-between pe-3 pt-3">
-                            <div class="d-flex align-items-center ms-3">
-                                <div>
-                                    <i class="fas fa-photo-video icon-index"></i>
-                                </div>
-                                <div class="ms-3">
-                                    <i class="fas fa-icons icon-index"></i>
-                                </div>
+			<?php if (isset($_SESSION['id'])) { ?>
+                <div class="">
+                    <form method="post">
+                        <div class="border">
+                            <div class="d-flex justify-content-center align-items-center pt-1 pe-1">
+                                <img src="<?php echo $_SESSION['photo'] ?>" alt="" width="32" height="32"
+                                     class="rounded-circle mb-4 ms-2">
+                                <textarea class="posting form-control"
+                                          rows="3"
+                                          name="tweet"
+                                          maxlength="250"
+                                          placeholder="¿Qué estas pensando?" style="padding-top: 5%;"></textarea>
                             </div>
-                            <input class="button mb-3"
-                                   type="submit"
-                                   name="post"
-                                   value="Publicar">
+                            <div class="d-flex justify-content-between pe-3 pt-3">
+                                <div class="d-flex align-items-center ms-3">
+                                    <div>
+                                        <i class="fas fa-photo-video icon-index"></i>
+                                    </div>
+                                    <div class="ms-3">
+                                        <i class="fas fa-icons icon-index"></i>
+                                    </div>
+                                </div>
+                                <input class="button mb-3"
+                                       type="submit"
+                                       name="post"
+                                       value="Publicar">
+                            </div>
                         </div>
-                    </div>
-                </form>
-				<?php
-				if (isset($_POST['post'])) {
-					$post = $_POST['tweet'];
-					$userId = $_SESSION['id'];
-					$id = uniqid();
-					if (strlen($post) > 0) {
-						$query = "INSERT INTO publicaciones VALUES('$id','$post', now(),'$userId', 0, 0)";
-						$result = $conexion->query($query);
+                    </form>
+					<?php
+					if (isset($_POST['post'])) {
+						$post = $_POST['tweet'];
+						$userId = $_SESSION['id'];
+						$id = uniqid();
+						if (strlen($post) > 0) {
+							$query = "INSERT INTO publicaciones VALUES('$id','$post', now(),'$userId', 0, 0)";
+							$result = $conexion->query($query);
+						}
 					}
-				}
-				?>
-            </div>
+					?>
+                </div>
+
+				<?php
+			}
+			?>
             <div id="div-posts">
 				<?php
-				$query = "SELECT u.name, u.email, u.photo AS photo, p.date, p.info, p.id AS id_publicacion, p.id_user,
-       p.likes, p.comments FROM publicaciones p INNER JOIN usuarios u ON u.id = p.id_user ORDER BY date DESC";
+				$query = "SELECT u.name, u.email, u.photo AS photo, p.date, p.info, p.id AS id_publicacion, p.id_user, p.likes, p.comments FROM publicaciones p INNER JOIN usuarios u ON u.id = p.id_user ORDER BY date DESC";
 				$posts = $conexion->query($query);
 				if ($posts) {
 					while ($post = $posts->fetch_assoc()) { ?>
@@ -140,36 +140,42 @@ if (isset($_GET['q'])) {
 										<?php echo $post['email'] ?>
                                     </div>
                                 </div>
-								<?php if ($_SESSION['id'] == $post['id_user'] || $_SESSION['role'] == '1') { ?>
-                                    <div class="dropdown circle-settings">
-                                        <a class="d-flex align-items-center text-black-50 text-decoration-none dropdown-toggle posts-settings p-2 fas fa-cog"
-                                           id="optionsPosts"
-                                           data-bs-toggle="dropdown"
-                                           aria-expanded="false">
-                                        </a>
-                                        <ul class="dropdown-menu" aria-labelledby="optionsPosts">
-											<?php if ($post['id_user'] == $_SESSION['id']) { ?>
+								<?php
+								if (isset($_SESSION['id'])) {
+									if ($_SESSION['id'] == $post['id_user'] || $_SESSION['role'] >= '1') { ?>
+                                        <div class="dropdown circle-settings">
+                                            <a class="d-flex align-items-center text-black-50 text-decoration-none dropdown-toggle posts-settings p-2 fas fa-cog"
+                                               id="optionsPosts"
+                                               data-bs-toggle="dropdown"
+                                               aria-expanded="false">
+                                            </a>
+                                            <ul class="dropdown-menu" aria-labelledby="optionsPosts">
+												<?php if ($post['id_user'] == $_SESSION['id']) { ?>
+                                                    <li>
+                                                        <a href="post.php?id=<?php echo $post['id_publicacion'] ?>&edit"
+                                                           class="dropdown-item" style="color: black">
+                                                            <i class="far fa-edit"></i> Editar
+                                                        </a>
+                                                    </li>
+												<?php } ?>
                                                 <li>
-                                                    <a href="post.php?id=<?php echo $post['id_publicacion'] ?>&edit"
-                                                       class="dropdown-item" style="color: black">
-                                                        <i class="far fa-edit"></i> Editar
-                                                    </a>
+                                                    <form action="delete.php" method="post">
+                                                        <input type="text" hidden name="id"
+                                                               value="<?php echo $post['id_publicacion'] ?>">
+                                                        <div class="d-flex align-items-center justify-content-center">
+                                                            <i class="far fa-trash-alt icon-trash"></i>
+                                                            <input type="submit" class="dropdown-item"
+                                                                   style="color: red"
+                                                                   value="Eliminar" name="delete">
+                                                        </div>
+                                                    </form>
                                                 </li>
-											<?php } ?>
-                                            <li>
-                                                <form action="delete.php" method="post">
-                                                    <input type="text" hidden name="id"
-                                                           value="<?php echo $post['id_publicacion'] ?>">
-                                                    <div class="d-flex align-items-center justify-content-center">
-                                                        <i class="far fa-trash-alt icon-trash"></i>
-                                                        <input type="submit" class="dropdown-item" style="color: red"
-                                                               value="Eliminar" name="delete">
-                                                    </div>
-                                                </form>
-                                            </li>
-                                        </ul>
-                                    </div>
-								<?php } ?>
+                                            </ul>
+                                        </div>
+										<?php
+									}
+								}
+								?>
                             </div>
                             <div class="">
                                 <div class="body">
@@ -190,19 +196,23 @@ if (isset($_GET['q'])) {
 												$actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 												echo $actual_link; ?>" hidden>
 												<?php
-												$query = "SELECT * FROM likes 
-WHERE id_publicacion ='{$post['id_publicacion']}' AND id_user = '{$_SESSION['id']}'";
+												$query = "SELECT * FROM likes WHERE id_publicacion ='{$post['id_publicacion']}'";
+												if (isset($_SESSION['id'])) {
+													$query = "SELECT * FROM likes WHERE id_publicacion ='{$post['id_publicacion']}' AND id_user = '{$_SESSION['id']}'";
+												}
 												$result = $conexion->query($query);
 												?>
                                                 <button type="submit" class="border-0 like-button circle-heart"
                                                         name="like"
                                                         value="<?php echo $post['id_publicacion'] ?>">
 													<?php
-													if ($result->num_rows) { ?>
-                                                        <i class="fas fa-heart icon-like"></i>
-													<?php } else { ?>
-                                                        <i class="far fa-heart"></i>
-													<?php }
+													if (isset($_SESSION['id'])) {
+														if ($result->num_rows) { ?>
+                                                            <i class="fas fa-heart icon-like"></i>
+														<?php } else { ?>
+                                                            <i class="far fa-heart"></i>
+														<?php }
+													}
 													echo $post['likes'];
 													?>
                                                 </button>

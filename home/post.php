@@ -1,6 +1,12 @@
 <?php
 session_start();
-if (!isset($_SESSION['id']) || !isset($_GET['id'])) {
+
+if(!isset($_SESSION['id'])) {
+    header('location: ../session/login.php');
+    die();
+}
+
+if (!isset($_GET['id'])) {
 	header('Location: ../error/404.php');
 	die();
 }
@@ -33,12 +39,13 @@ if (isset($_GET['id'])) {
 <body onload="ajax();">
 <div class="container pt-3">
     <div class="row">
+
 		<?php include 'navigation.php'; ?>
         <div class="col">
             <div class="row p-3">
                 <div>
                     <div class="d-flex pt-1 mb-3">
-                        <a href="../index.php" class="pe-2 back d-flex align-items-center justify-content-center">
+                        <a href="home.php" class="pe-2 back d-flex align-items-center justify-content-center">
                             <i class="fas fa-arrow-left"></i>
                             <p style="font-size: 18px; font-weight: bold" class="ps-1">Publicación</p>
                         </a>
@@ -103,7 +110,7 @@ if (isset($_GET['id'])) {
 
                     <div class="d-flex flex-row pt-3 justify-content-between pe-3 ps-3 align-items-center">
                         <div class="icon-comment">
-                            <a href="post.php?id=<?php echo $_GET['id']?>"><i class="far fa-comment icon-comment"></i></a>
+                            <a href="post.php?id=<?php echo $_GET['id'] ?>"><i class="far fa-comment icon-comment"></i></a>
                         </div>
                         <div class="icon-retuit">
                             <a href=""><i class="fas fa-retweet icon-retuit"></i></a>
@@ -139,11 +146,12 @@ if (isset($_GET['id'])) {
                         </div>
                     </div>
                 </div>
-				<?php if (!isset($_GET['edit'])) { ?>
+				<?php if (!isset($_GET['edit']) || !isset($_SESSION['id'])) { ?>
                     <div class="">
                         <form method="post" action="">
                             <div class="d-flex">
-                                <textarea class="form-control" name="response" placeholder="Tuitea tu respuesta"></textarea>
+                                <textarea class="form-control" name="response"
+                                          placeholder="Tuitea tu respuesta"></textarea>
                                 <button type="submit" name="comment" class="button ms-2">
                                     Comentar
                                 </button>

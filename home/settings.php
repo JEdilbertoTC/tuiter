@@ -2,7 +2,7 @@
 session_start();
 include '../config/database.php';
 if (!isset($_SESSION['id'])) {
-	header('Location: login.php');
+	header('location: ../session/login.php');
 	die();
 }
 $id = $_SESSION['id'];
@@ -63,30 +63,54 @@ $result = $conexion->query($query)->fetch_assoc();
                 </div>
             </form>
 
-            <form method="post" action="" class="change-data-container" style="margin-top: 20px">
+            <form method="post" action="change-name.php" class="change-data-container" style="margin-top: 20px">
                 <p class="change-data">Nombre</p>
                 <div class="d-flex flex-row">
-                    <input type="text" name="name" autocomplete="no" required class="text-box" placeholder="Nombre">
+                    <input type="text" name="name" autocomplete="off" required class="text-box" placeholder="Nombre"
+                           value="<?php echo $_SESSION['name'] ?>">
                     <input type="submit" name="different-name" class="button" value="Cambiar">
                 </div>
             </form>
-            <form method="post" action="" class="change-data-container">
+            <form method="post" action="change-email.php" class="change-data-container">
+				<?php
+				if (isset($_GET['error'])) {
+					echo 'No se cambio el email';
+				}
+                if(isset($_GET['same'])) {
+                    echo 'No puedes ingresar el mismo correo electronico ya registrado';
+                }
+				if(isset($_GET['other'])) {
+					echo 'Este correo ya ha sido registrado anteriomente por otra persona';
+				}
+				?>
                 <p class="change-data">Correo Electrónico</p>
                 <div class="d-flex flex-row">
                     <input type="email" name="email" required class="text-box"
-                           placeholder="Correo Electrónico">
+                           value="<?php echo $_SESSION['email'] ?>"
+                    placeholder="Correo Electrónico">
                     <input type="submit" name="different-email" class="button" value="Cambiar">
                 </div>
             </form>
-            <form method="post" action="" class="change-data-container">
+            <form method="post" action="change-password.php" class="change-data-container">
+                <?php
+                if(isset($_GET['success'])) {
+                    echo 'Contraseña cambiada correctamente';
+                }
+
+                if(isset($_GET['password'])) {
+	                echo 'No cambiamos la contraseña';
+                }
+                ?>
                 <p class="change-data">Contraseña</p>
                 <div class="d-flex flex-row">
-                    <input type="password" name="password" required autocomplete="off" class="text-box"
-                           placeholder="Contraseña">
+                    <input type="password" name="password" required class="text-box"
+                           placeholder="Antigua Contraseña">
+                    <input type="password" name="password2" required class="text-box"
+                           placeholder="Nueva Contraseña">
                     <input type="submit" name="different-password" class="button" value="Cambiar">
                 </div>
             </form>
-            <form method="post" action="" class="change-data-container">
+            <form method="post" action="change-biography.php" class="change-data-container">
                 <p class="change-data">Cambiar Biografía</p>
                 <div class="d-flex flex-row">
                     <input type="text" name="biography" required autocomplete="off" class="text-box"
@@ -97,95 +121,11 @@ $result = $conexion->query($query)->fetch_assoc();
         </div>
     </div>
 </div>
-
-<?php if (isset($_POST['different-name'])) {
-	$differentName = $_POST['name'];
-	$differentName = trim($differentName);
-
-	if (!$differentName) { ?>
-        <div class="alert alert-danger alert-dismissible">
-            No se cambio el nombre
-        </div>
-		<?php
-		die();
-	}
-	$id = $_SESSION['id'];
-	$query = "UPDATE usuarios SET name='$differentName' WHERE id = '$id' ";
-	$correct = $conexion->query($query);
-
-	if ($correct)
-		header('Location: settings.php');
-}
-
-if (isset($_POST['different-password'])) {
-	$differentPassword = $_POST['password'];
-	$differentPassword = trim($differentPassword);
-
-	if (!$differentPassword) { ?>
-        <div class="alert alert-danger alert-dismissible">
-            No se cambio la contraseña
-        </div>
-		<?php
-		die();
-	}
-	$id = $_SESSION['id'];
-	$query = "UPDATE usuarios SET password='$differentPassword' WHERE id = '$id' ";
-	$correct = $conexion->query($query);
-
-	if ($correct)
-		header('Location: settings.php');
-}
-
-if (isset($_POST['different-biography'])) {
-	$biography = $_POST['biography'];
-	$id = $_SESSION['id'];
-	$query = "UPDATE usuarios SET biography='$biography' WHERE id = '$id' ";
-	$correct = $conexion->query($query);
-	if ($correct)
-		header('Location: settings.php');
-}
-
-if (isset($_POST['different-email'])) {
-	$differentEmail = $_POST['email'];
-	$id = $_SESSION['id'];
-	$differentEmail = trim($differentEmail);
-
-	if (!$differentEmail) { ?>
-        <div class="alert alert-danger alert-dismissible">
-            No se cambio el email
-        </div>
-		<?php
-	}
-
-	$query = "SELECT email FROM usuarios WHERE id = '$id' ";
-	$correct = $conexion->query($query)->fetch_assoc();
-	if ($differentEmail == $correct['email']) { ?>
-        <div class="alert alert-danger alert-dismissible">
-            No puedes ingresar el mismo correo electronico ya registrado
-        </div>
-		<?php
-		die();
-	}
-	$query = "SELECT email FROM usuarios WHERE email = '$differentEmail'";
-	if ($conexion->query($query)->num_rows > 0) { ?>
-        <div class="alert alert-danger alert-dismissible">
-            Este correo ya ha sido registrado anteriomente por otra persona
-        </div>
-		<?php
-		die();
-	}
-	$query = "UPDATE usuarios SET email='$differentEmail' WHERE id = '$id' ";
-	$correct = $conexion->query($query);
-	if ($correct) {
-		$_SESSION['email'] = $differentEmail;
-		header('Location: settings.php');
-	}
-}
-?>
 </body>
-<script src="../index.js"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
 <script src="https://kit.fontawesome.com/bc96b95e59.js" crossorigin="anonymous"></script>
+<script src="../index.js"></script>
 </html>

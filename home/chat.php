@@ -1,18 +1,23 @@
 <?php
 session_start();
 include '../config/database.php';
+
 if (!isset($_SESSION['id']) || !isset($_GET['id'])) {
-	header('Location: ../session/login.php');
+	header('location: ../session/login.php');
+	die();
 }
 
-if (!$conexion->query("SELECT * FROM usuarios WHERE id = '{$_GET['id']}'")->num_rows)
+if (!$conexion->query("SELECT * FROM usuarios WHERE id = '{$_GET['id']}'")->num_rows) {
 	header('location: ../error/404.php');
+	die();
+}
 
 $idUser1 = $_SESSION['id'];
 $idUser2 = $_GET['id'];
 
 if ($idUser2 == $idUser1) {
 	header('location: messages.php');
+    die();
 }
 
 $idChatOrigin = null;
@@ -98,8 +103,9 @@ if ($conexion->query($query)->num_rows == 0) {
 
             <div class="d-flex">
                 <a href="messages.php"><i class="fas fa-arrow-left"></i></a>
-                <a class="ps-2 profile" style="font-weight: bold; text-transform: uppercase" href="profile.php?id=<?php echo $chatWith['id']?>">
-                    <?php echo $chatWith['name'] ?>
+                <a class="ps-2 profile" style="font-weight: bold; text-transform: uppercase"
+                   href="profile.php?id=<?php echo $chatWith['id'] ?>">
+					<?php echo $chatWith['name'] ?>
                 </a>
             </div>
 

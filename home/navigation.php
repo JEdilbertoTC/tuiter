@@ -12,7 +12,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-				<?php if ($_SESSION['role'] == '1') { ?>
+				<?php if ($_SESSION['role'] >= '1') { ?>
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="../admin/admin.php">Admin</a>
                     </li>

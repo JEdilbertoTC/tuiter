@@ -1,9 +1,6 @@
 <?php
 session_start();
 include '../config/database.php';
-
-if (!isset($_SESSION['id']))
-	header('Location: ./session/login.php');
 ?>
 
 <!doctype html>
@@ -22,7 +19,11 @@ if (!isset($_SESSION['id']))
 <body>
 <div class="container">
     <div class="row">
-		<?php include 'navigation.php' ?>
+		<?php
+		if (isset($_SESSION['id'])) {
+			include 'navigation.php';
+        }
+		?>
 		<?php include 'posts.php' ?>
 		<?php include "sidebar.php"; ?>
     </div>

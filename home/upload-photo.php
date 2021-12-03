@@ -9,6 +9,11 @@ if(!isset($_SESSION['id']) || !isset($_POST['submit'])) {
 $id = $_SESSION['id'];
 if (isset($_POST['submit'])) {
 	$directory = '/upload/';
+
+	if(!file_exists("..". $directory)){
+		mkdir("..". $directory);
+	}
+
 	$upload = $directory . basename($_FILES['file']['name']);
 	move_uploaded_file($_FILES['file']['tmp_name'], ".." . $upload);
 
