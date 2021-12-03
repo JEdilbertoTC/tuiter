@@ -9,8 +9,9 @@ if ($conexion->query($query)->num_rows == 1) {
 	$user = $conexion->query($query)->fetch_assoc();
 	$query = "SELECT * FROM publicaciones p WHERE p.id_user = '$userId' ORDER BY date DESC";
 	$posts = $conexion->query($query);
-} else
+} else {
 	header('Location: ../error/404.php');
+}
 ?>
 
 <!doctype html>

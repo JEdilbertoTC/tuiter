@@ -1,7 +1,9 @@
 <?php
 include '../config/database.php';
-if (!isset($_SESSION['id']))
+if (!isset($_SESSION['id'])) {
 	header('location: ../index.php');
+    die();
+}
 $query = "SELECT * FROM usuarios WHERE id != '{$_SESSION['id']}'";
 $users = $conexion->query($query);
 

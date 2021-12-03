@@ -27,6 +27,7 @@ if (isset($_POST['like']) && isset($_SESSION['id'])) {
 	}
 	$conexion->query($query);
 	header("Location: {$url}");
+	die();
 } else {
 	header('location: home.php');
 	die();

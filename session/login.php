@@ -1,9 +1,11 @@
 <?php
 session_start();
 include '../config/database.php';
+
 if (isset($_SESSION['id'])) {
 	header("Location: ../home/home.php");
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -80,7 +82,8 @@ if (isset($_SESSION['id'])) {
                             </div>
 			                <?php
 		                }
-	                } ?>
+	                }
+                    ?>
                 </form>
             </div>
         </div>

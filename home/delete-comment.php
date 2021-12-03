@@ -1,10 +1,10 @@
 <?php
 include '../config/database.php';
 
-if(!isset($_SESSION['id']) || isset($_POST['delete-comment'])) {
-	header('location: ../index.php');
+if(!isset($_POST['delete-comment'])) {
+	header('location: home.php');
+	die();
 }
-
 
 if (isset($_POST['delete-comment'])) {
 	$idComment = $_POST['id-comment'];
@@ -17,4 +17,5 @@ if (isset($_POST['delete-comment'])) {
 	$result = $conexion->query($query);
 
 	header("Location: post.php?id=$idPost");
+	die();
 }

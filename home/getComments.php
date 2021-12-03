@@ -2,13 +2,13 @@
 session_start();
 include "../config/database.php";
 
-if (!isset($_GET['id']) || !isset($_SESSION['id'])) {
+if (!isset($_GET['id'])) {
 	header('location: ../session/login.php');
     die();
 }
 
 $query = "SELECT  u.name, c.message, u.photo, u.email, u.id, c.message, c.id_user, c.id_publicacion, c.id AS id_comentario, c.date
-FROM usuarios u INNER JOIN comentarios c ON u.id = c.id_user 
+FROM usuarios u INNER JOIN comentarios c ON u.id = c.id_user
     INNER JOIN publicaciones p ON c.id_publicacion = p.id AND p.id = '{$_GET['id']}' ORDER BY c.date DESC";
 $comments = $conexion->query($query);
 $result = null;

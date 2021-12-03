@@ -4,7 +4,8 @@ session_start();
 include '../config/database.php';
 
 if (!isset($_SESSION['id']) || !isset($_POST['different-password'])) {
-	header('location: ../index.php');
+	header('location: ../session/login.php');
+	die();
 }
 
 if (isset($_POST['different-password'])) {
@@ -25,5 +26,6 @@ if (isset($_POST['different-password'])) {
 	$query = "UPDATE usuarios SET password='$differentPassword' WHERE id = '$id' ";
 	$conexion->query($query);
 	header('Location: settings.php?success');
+	die();
 }
 

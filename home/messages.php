@@ -2,6 +2,7 @@
 session_start();
 if (!isset($_SESSION['id'])) {
 	header("location: ../session/login.php");
+    die();
 }
 include '../config/database.php';
 ?>

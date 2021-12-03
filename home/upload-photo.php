@@ -4,6 +4,7 @@ include '../config/database.php';
 
 if(!isset($_SESSION['id']) || !isset($_POST['submit'])) {
 	header('location: ../index.php');
+	die();
 }
 
 $id = $_SESSION['id'];
@@ -23,5 +24,6 @@ if (isset($_POST['submit'])) {
 	if ($correct) {
 		$_SESSION['photo'] = $upload;
 		header('location: settings.php');
+		die();
 	}
 }

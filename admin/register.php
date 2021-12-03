@@ -1,6 +1,7 @@
 <?php
 session_start();
 include '../config/database.php';
+
 if (!isset($_SESSION['id']) && $_SESSION['role'] != '1') {
 	header('Location: ../session/login.php');
 	die();
@@ -74,6 +75,7 @@ if (!isset($_SESSION['id']) && $_SESSION['role'] != '1') {
 					$id = uniqid();
 					$photo = 'https://i.stack.imgur.com/l60Hf.png';
 					$checkEmail = $conexion->query("SELECT * FROM usuarios WHERE email = '$email'");
+
 					if ($checkEmail->num_rows >= 1) { ?>
                         <div class="alert alert-danger alert-dismissible">
                             El email ya está en uso por favor escoja otro o verifique si tiene una cuenta

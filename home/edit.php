@@ -4,6 +4,7 @@ include '../config/database.php';
 
 if(!isset($_POST['tweet']) || !isset($_SESSION['id'])) {
 	header('location: home.php');
+	die();
 }
 
 if (isset($_POST['post'])) {
@@ -15,5 +16,6 @@ if (isset($_POST['post'])) {
 		$query = "UPDATE publicaciones SET info = '$post' WHERE id = '$id' AND id_user = '$userId'";
 		$result = $conexion->query($query);
 		header('Location: home.php');
+		die();
 	}
 }

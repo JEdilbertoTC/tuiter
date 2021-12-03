@@ -1,5 +1,4 @@
 <?php
-
 if (isset($_GET['q'])) {
 	$q = $_GET['q'];
 	$query = "SELECT * FROM usuarios WHERE name LIKE '%$q%'";
@@ -40,7 +39,6 @@ if (isset($_GET['q'])) {
                                 <img src="<?php echo $post['photo'] ?>" alt="" width="32" height="32"
                                      class="rounded-circle">
                             </div>
-
                             <a class="d-flex align-items-center"
                                href="profile.php?id=<?php echo $post['id_user'] ?>">
                                 <div class="d-flex ps-2">
@@ -53,14 +51,12 @@ if (isset($_GET['q'])) {
                                 </div>
                             </a>
                         </div>
-
                         <a href="post.php?id=<?php echo $post['id_publicacion'] ?>">
                             <div class="pb-4 pe-3 ps-5">
                                 <p><?php echo $post['info']; ?></p>
                                 <p class="date-random" style="text-align: right"><?php echo $post['date'] ?></p>
                             </div>
                         </a>
-
                     </div>
 					<?php
 				}
@@ -118,7 +114,6 @@ if (isset($_GET['q'])) {
 					}
 					?>
                 </div>
-
 				<?php
 			}
 			?>
@@ -137,7 +132,10 @@ if (isset($_GET['q'])) {
                                         <a class="profile"
                                            href="profile.php?id=<?php echo $post['id_user'] ?>"><?php echo $post['name'] ?>
                                         </a>
+                                        <p class="ps-2">
 										<?php echo $post['email'] ?>
+                                        </p>
+
                                     </div>
                                 </div>
 								<?php
@@ -157,7 +155,9 @@ if (isset($_GET['q'])) {
                                                             <i class="far fa-edit"></i> Editar
                                                         </a>
                                                     </li>
-												<?php } ?>
+													<?php
+												}
+												?>
                                                 <li>
                                                     <form action="delete.php" method="post">
                                                         <input type="text" hidden name="id"
@@ -212,8 +212,13 @@ if (isset($_GET['q'])) {
 														<?php } else { ?>
                                                             <i class="far fa-heart"></i>
 														<?php }
+														echo $post['likes'];
+													} else {
+														?>
+                                                        <i class="fas fa-heart icon-like"></i>
+														<?php
+														echo $post['likes'];
 													}
-													echo $post['likes'];
 													?>
                                                 </button>
                                             </form>

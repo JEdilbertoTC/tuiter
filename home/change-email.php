@@ -2,6 +2,11 @@
 session_start();
 include '../config/database.php';
 
+if(!isset($_SESSION['id']) || !isset($_POST['different-email'])) {
+	header('location: ../session/login.php');
+	die();
+}
+
 if (isset($_POST['different-email'])) {
 	$differentEmail = $_POST['email'];
 	$id = $_SESSION['id'];
@@ -31,4 +36,5 @@ if (isset($_POST['different-email'])) {
 	$conexion->query($query);
 	$_SESSION['email'] = $differentEmail;
 	header('Location: settings.php');
+	die();
 }

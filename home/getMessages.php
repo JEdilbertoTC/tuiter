@@ -12,6 +12,7 @@ $query = "SELECT * FROM sala_chat WHERE id = '$idChat'";
 $result = $conexion->query($query);
 if (!$result->num_rows) {
 	header('location: ../error/404.php');
+    die();
 }
 $user2 = $conexion->query($query)->fetch_assoc()['id_user2'];
 

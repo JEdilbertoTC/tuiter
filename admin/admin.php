@@ -1,10 +1,12 @@
 <?php
 session_start();
 include '../config/database.php';
+
 if ($_SESSION['role'] == 0 || !isset($_SESSION['id'])) {
 	header('Location: ../session/login.php');
 	die();
 }
+
 ?>
 
 <!doctype html>

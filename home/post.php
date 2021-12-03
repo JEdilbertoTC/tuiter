@@ -1,11 +1,6 @@
 <?php
 session_start();
 
-if(!isset($_SESSION['id'])) {
-    header('location: ../session/login.php');
-    die();
-}
-
 if (!isset($_GET['id'])) {
 	header('Location: ../error/404.php');
 	die();
@@ -16,10 +11,13 @@ if (isset($_GET['id'])) {
 	$id = $_GET['id'];
 	$query = "SELECT * FROM publicaciones p INNER JOIN usuarios u ON p.id_user = u.id AND p.id = '$id'";
 	$result = $conexion->query($query);
-	if ($result->num_rows == 0)
-		header('Location: ../error/404.php');
-	$result = $result->fetch_assoc();
 
+	if ($result->num_rows == 0) {
+		header('Location: ../error/404.php');
+		die();
+	}
+
+	$result = $result->fetch_assoc();
 }
 ?>
 
@@ -40,7 +38,11 @@ if (isset($_GET['id'])) {
 <div class="container pt-3">
     <div class="row">
 
-		<?php include 'navigation.php'; ?>
+		<?php
+		if (isset($_SESSION['id'])) {
+			include 'navigation.php';
+		}
+		?>
         <div class="col">
             <div class="row p-3">
                 <div>
@@ -74,24 +76,28 @@ if (isset($_GET['id'])) {
                 </div>
 
 				<?php
-				$query = "SELECT * FROM publicaciones p INNER JOIN usuarios u ON p.id_user = u.id AND p.id = '$id' 
+				if (isset($_GET['edit'])) {
+					if (isset($_SESSION['id'])) {
+						$query = "SELECT * FROM publicaciones p INNER JOIN usuarios u ON p.id_user = u.id AND p.id = '$id'
                                                            AND u.id = '{$_SESSION['id']}'";
-				if (isset($_GET['edit']) && $conexion->query($query)->num_rows) { ?>
-                    <form action="edit.php" class="mt-3 ps-4" method="post">
-                        <div class="d-flex flex-row">
-                            <input type="text" hidden value="<?php echo $_GET['id'] ?>" name="id_publicacion">
-                            <textarea class="form-control texto"
-                                      maxlength="250"
-                                      name="tweet"
-                                      type="text"
-                                      placeholder="¿Qué estas pensando?"><?php echo $result['info']; ?></textarea>
-                            <input class="button mb-3 ms-2"
-                                   type="submit"
-                                   name="post"
-                                   value="Editar">
-                        </div>
-                    </form>
-					<?php
+						if (isset($_GET['edit']) && $conexion->query($query)->num_rows) { ?>
+                            <form action="edit.php" class="mt-3 ps-4" method="post">
+                                <div class="d-flex flex-row">
+                                    <input type="text" hidden value="<?php echo $_GET['id'] ?>" name="id_publicacion">
+                                    <textarea class="form-control texto"
+                                              maxlength="250"
+                                              name="tweet"
+                                              type="text"
+                                              placeholder="¿Qué estas pensando?"><?php echo $result['info']; ?></textarea>
+                                    <input class="button mb-3 ms-2"
+                                           type="submit"
+                                           name="post"
+                                           value="Editar">
+                                </div>
+                            </form>
+							<?php
+						}
+					}
 				} else { ?>
                     <div class="mt-3 ps-4">
                         <p><?php echo $result['info']; ?></p>
@@ -121,8 +127,11 @@ if (isset($_GET['id'])) {
 								$actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 								echo $actual_link; ?>" hidden>
 								<?php
-								$query = "SELECT * FROM likes WHERE id_publicacion ='{$_GET['id']}'
+								$query = "SELECT * FROM likes WHERE id_publicacion ='{$_GET['id']}'";
+								if (isset($_SESSION['id'])) {
+									$query = "SELECT * FROM likes WHERE id_publicacion ='{$_GET['id']}'
 									                                AND id_user = '{$_SESSION['id']}'";
+								}
 								$likes = $conexion->query($query);
 								?>
                                 <button type="submit" class="like-button"
@@ -146,22 +155,24 @@ if (isset($_GET['id'])) {
                         </div>
                     </div>
                 </div>
-				<?php if (!isset($_GET['edit']) || !isset($_SESSION['id'])) { ?>
-                    <div class="">
-                        <form method="post" action="">
-                            <div class="d-flex">
+				<?php
+				if (isset($_SESSION['id'])) {
+					if (!isset($_GET['edit'])) { ?>
+                        <div class="">
+                            <form method="post" action="">
+                                <div class="d-flex">
                                 <textarea class="form-control" name="response"
                                           placeholder="Tuitea tu respuesta"></textarea>
-                                <button type="submit" name="comment" class="button ms-2">
-                                    Comentar
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-					<?php
+                                    <button type="submit" name="comment" class="button ms-2">
+                                        Comentar
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+						<?php
+					}
 				}
 				?>
-
 				<?php
 				if (isset($_POST['comment'])) {
 
@@ -175,7 +186,8 @@ if (isset($_GET['id'])) {
 
 					$query = "UPDATE publicaciones SET comments = comments + 1 WHERE id = '$idPost'";
 					$conexion->query($query);
-				} ?>
+				}
+				?>
                 <script>
                     const idPost = "<?php echo $_GET['id']?>";
 

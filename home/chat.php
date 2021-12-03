@@ -17,7 +17,7 @@ $idUser2 = $_GET['id'];
 
 if ($idUser2 == $idUser1) {
 	header('location: messages.php');
-    die();
+	die();
 }
 
 $idChatOrigin = null;
@@ -131,7 +131,8 @@ if ($conexion->query($query)->num_rows == 0) {
 
 				$query = "INSERT INTO mensajes VALUES ('$id', '$idChatDestiny', '$message', now(), '{$_SESSION['id']}')";
 				$conexion->query($query);
-			} ?>
+			}
+			?>
         </div>
     </div>
 </div>
